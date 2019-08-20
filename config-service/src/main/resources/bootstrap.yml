@@ -1,0 +1,48 @@
+server:
+  port: 7999
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/yuanchangxin/blocks-config.git
+#          uri: git@github.com:yuanchangxin/blocks-config.git
+          basedir: D:\ycx\idea\workspace\blocks\config
+          search-paths: '{application}'
+          force-pull: true
+          clone-on-start: false
+          host-key-algorithm: ssh-rsa
+          ignoreLocalSshSettings: true  #为了激活基于属性的SSH配置
+#          private-key: |
+#                        -----BEGIN OPENSSH PRIVATE KEY-----
+#                        b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn
+#                        NhAAAAAwEAAQAAAQEAuL3XVO1uJZyx4AvIOQdhvtcHwmdfgeqszZMqvFpJ+vKI+KwoDWAA
+#                        reL5VrAbU3HZMKDKsEydNiA5rQVV5dqxK1ASXyYAlBFJcudA1Dg5NK3lMtRt9SMaAuSo5E
+#                        N1Y7v8TnWcRZYsCRyzV5ZnBLD3zSNLkayZex0EdR9ATUZ5qx2gtvPe6MYvD3fZ5zBRCfe6
+#                        fOxsTg/cGHGojfo1GDyU5jdfYTQC7VU30PSsoVruUERW3QuO4Dgn1QQ4wAFIFUtjAthFgf
+#                        eNoFzuuwW0n9c3Zz+kaCdg4fzP5JR5K0xMTLnYyD/RddlgmppfuZw61YqEfa5tgW1WQ6hQ
+#                        I3BzLHpx+wAAA9CKzgtNis4LTQAAAAdzc2gtcnNhAAABAQC4vddU7W4lnLHgC8g5B2G+1w
+#                        fCZ1+B6qzNkyq8Wkn68oj4rCgNYACt4vlWsBtTcdkwoMqwTJ02IDmtBVXl2rErUBJfJgCU
+#                        EUly50DUODk0reUy1G31IxoC5KjkQ3Vju/xOdZxFliwJHLNXlmcEsPfNI0uRrJl7HQR1H0
+#                        BNRnmrHaC2897oxi8Pd9nnMFEJ97p87GxOD9wYcaiN+jUYPJTmN19hNALtVTfQ9KyhWu5Q
+#                        RFbdC47gOCfVBDjAAUgVS2MC2EWB942gXO67BbSf1zdnP6RoJ2Dh/M/klHkrTExMudjIP9
+#                        F12WCaml+5nDrVioR9rm2BbVZDqFAjcHMsenH7AAAAAwEAAQAAAQEAuIniJFK7+VRKFmyO
+#                        h/EIwbJYbOgH7mW2Ue/U+6sRRVyqWATYSWwBobEdsmteEH+kHcAwV+VgESYlluDCikVnPs
+#                        XQZD04zK9r+BxqlNLIygd+8MRkRj/XBtbUopeEFqk8gj9XZ+d3e26w8ygpJfWEwuSj4xNP
+#                        iTxWLIyYFdj1RmgyfZa0rcuZlsIxvBB5ke72fp3sJYoyXYBG3ElpINciTKxqsUh+QAorLQ
+#                        ExfaLvjdSHurcr9GYRsi0I8Z0k0OM5flOuznPVKSUQMeh2HLw7aqlGezPiF6hOq4WtUnkF
+#                        Kpwnhuep1UEZYEonmY8s3O0+iQk6NIiofqfb+5MGvO4TCQAAAIADBamNwfEfyZUXUvrdYe
+#                        cSPCc7n/Te+gXzvuPhJyFvVVdVnZeAmD6LRKyGoz2qgbdxTnVQyibcnZtWaRVYCFyWWJnQ
+#                        LvJbpuhPEPSQTBscsJYJc2ZK8nrEXVG5s5rSLU23N/xjoJ5+SZByPwSmOh1/aq+tMNoc1A
+#                        h/EOk84nedbgAAAIEA3tHeX7Ts4LicGHwsosFkhUtfZQ4NTSYTy0/L92EsKSmdHTzwuABy
+#                        zX21TbUGlE/ZkQ0s5FZ4V5IgNR3IRljZvVnQ3TaSevjo6x5swDlIpRu8HbCO64LfaUJIdO
+#                        K0MDh07x1JXCY5rK8s0BeFgmAuiRP2k+CuSBOj8BBpXKevC+cAAACBANRAY5+aVXNixkb3
+#                        y4QSdaqShoGtgJT+WItn64vNeF9tYZINudtGYtG4wCclB6aJ4M/9cmfXrmdWi7wHtxFEuG
+#                        bnEnA4dS6CM3VeLPxvlrtoBb2wXRacSvfxxLXptXOT5/3Cecn/MXa3EIHvk2+gDreFm9Kd
+#                        Cin9afyeAp/39YbNAAAAGXJvY2twYW5kYUBERVNLVE9QLUk0U01NNEcB
+#                        -----END OPENSSH PRIVATE KEY-----
+
+          username: yuanchangxin
+          password: YCXlqh3172678

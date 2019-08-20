@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: eureka-service                     #指定了配置文件的应用名
+  cloud:
+    config:
+      uri: http://localhost:7999/        #Config server的uri
+      profile: dev                       #指定的环境
+      label: master                      #指定分支
+server:
+  port: 7001
+management:
+  security:
+    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
