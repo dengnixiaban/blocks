@@ -7,6 +7,7 @@
     <groupId>cn.blocks</groupId>
     <artifactId>blocks-parents</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -16,10 +17,16 @@
     </parent>
 
     <modules>
+        <!--network-->
         <module>config-service</module>
         <module>eureka-service</module>
+
+        <!--common-->
         <module>common-dependency</module>
         <module>common-utils</module>
+
+        <!--user-->
+        <module>user-api</module>
     </modules>
 
     <properties>
@@ -37,6 +44,7 @@
             <artifactId>common-dependency</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
