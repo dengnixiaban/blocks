@@ -3,14 +3,18 @@ spring:
     name: eureka-service                     #指定了配置文件的应用名
   cloud:
     config:
-      uri: http://localhost:7999/        #Config server的uri
+      uri: http://localhost:7001/        #Config server的uri
       profile: dev                       #指定的环境
       label: master                      #指定分支
+  security:
+    user:
+      name: blocks
+      password: blocks
 server:
-  port: 7001
+  port: 7002
 management:
   security:
-    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+    enabled: true     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
   endpoints:
     web:
       exposure:
@@ -24,3 +28,5 @@ eureka:
   instance:
     hostname: ${spring.application.name}
     instance-id: ${spring.application.name}:${server.port}
+  server:
+    enable-self-preservation: false #关闭保护机制

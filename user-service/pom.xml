@@ -3,7 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <parent>
         <groupId>cn.blocks</groupId>
         <artifactId>blocks-parents</artifactId>
@@ -11,25 +10,29 @@
     </parent>
 
 
-
     <groupId>cn.blocks</groupId>
-    <artifactId>eureka-service</artifactId>
+    <artifactId>user-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>eureka-service</name>
-    <description>eureka for blocks</description>
+    <name>user-service</name>
+    <description>user service for blocks</description>
 
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.blocks</groupId>
+            <artifactId>user-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>cn.blocks</groupId>
             <artifactId>common-dependency</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
         <!--Spring Cloud Config 客户端依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -40,14 +43,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--eureka客户端-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <!--Spring Boot Actuator，感应服务端变化-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
@@ -57,5 +63,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

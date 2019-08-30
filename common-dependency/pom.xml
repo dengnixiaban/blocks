@@ -17,7 +17,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>common-dependency</name>
     <description>common-dependency for blocks</description>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->

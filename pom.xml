@@ -27,6 +27,7 @@
 
         <!--user-->
         <module>user-api</module>
+        <module>user-service</module>
     </modules>
 
     <properties>
@@ -39,11 +40,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.blocks</groupId>
-            <artifactId>common-dependency</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
 
     </dependencies>
 

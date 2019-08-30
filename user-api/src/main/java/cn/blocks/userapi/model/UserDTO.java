@@ -1,6 +1,6 @@
 package cn.blocks.userapi.model;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * @description
@@ -10,11 +10,14 @@ import lombok.Data;
  * @date 2019/8/30 17:05
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class UserDTO {
 
     private String id;
 
     private String name;
-
 
 }

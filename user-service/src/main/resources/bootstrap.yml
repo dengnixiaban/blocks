@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    config:
+      uri: http://localhost:7001/        #Config server的uri
+      profile: dev                       #指定的环境
+      label: master                      #指定分支
+server:
+  port: 8081
+eureka:
+  client:
+    service-url:
+      defaultZone: http://blocks:blocks@127.0.0.1:7002/eureka/
+    register-with-eureka: true
+  instance:
+    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
+    lease-renewal-interval-in-seconds: 10   #心跳
+management:
+  security:
+    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+  endpoints:
+    web:
+      exposure:
+        include: "*"

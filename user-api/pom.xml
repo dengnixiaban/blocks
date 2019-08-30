@@ -17,8 +17,11 @@
 
 
     <dependencies>
-
-
+        <dependency>
+            <groupId>cn.blocks</groupId>
+            <artifactId>common-dependency</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
