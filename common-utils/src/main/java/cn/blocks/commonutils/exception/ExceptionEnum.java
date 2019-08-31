@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum ExceptionEnum {
-    HTTPSERVERFRAMERROR("","");
+
+    HTTPSERVERFRAMERROR("900001","httpserver框架异常:%s");
 
     private String code;
     private String msg;

@@ -7,7 +7,13 @@ package cn.blocks.commonutils;
 /**
  *
  * 工具包
+ * rule: 所有code均为6位
  *
+ * 0:正常响应
+ *
+ *
+ *
+ * 9:异常码
  *
  *
  *

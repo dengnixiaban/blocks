@@ -1,5 +1,7 @@
 package cn.blocks.httpserver.registrar;
 
+import cn.blocks.commonutils.exception.BlocksFrameWorkException;
+import cn.blocks.commonutils.exception.ExceptionEnum;
 import cn.blocks.httpserver.annotation.EnableHttpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -7,10 +9,10 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.CollectionUtils;
-import static cn.blocks.httpserver.constant.HttpServerConstant.*;
 
-import java.util.List;
 import java.util.Map;
+
+import static cn.blocks.httpserver.constant.HttpServerConstant.AUTOIMPORTCONFIGUTATIONKEY;
 
 /**
  * @description
@@ -40,6 +42,7 @@ public class HttpServerRegistrar implements ImportBeanDefinitionRegistrar {
                         registerClientConfiguration(registry,"blocks",Class.forName(cls));
                     } catch (ClassNotFoundException e) {
                         log.info("class未找到");
+                        throw new BlocksFrameWorkException(ExceptionEnum.HTTPSERVERFRAMERROR,e);
                     }
                 }
             }
