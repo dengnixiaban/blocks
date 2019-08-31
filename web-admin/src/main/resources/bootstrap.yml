@@ -1,21 +1,20 @@
 spring:
   application:
-    name: user-service
+    name: web-admin
   cloud:
     config:
       uri: http://94.191.94.146:7001/        #Config server的uri
       profile: dev                       #指定的环境
       label: master                      #指定分支
 server:
-  port: 8081
+  port: 8091
 eureka:
   client:
     service-url:
       defaultZone: http://blocks:blocks@94.191.94.146:7002/eureka/
     register-with-eureka: true
   instance:
-#    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
     lease-renewal-interval-in-seconds: 10   #心跳
 management:
   security:

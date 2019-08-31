@@ -28,6 +28,9 @@
         <!--user-->
         <module>user-api</module>
         <module>user-service</module>
+
+        <!--web-->
+        <module>web-admin</module>
     </modules>
 
     <properties>

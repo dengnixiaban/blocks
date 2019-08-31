@@ -1,6 +1,9 @@
 package cn.blocks.userapi.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @description
@@ -19,5 +22,8 @@ public class UserDTO {
     private String id;
 
     private String name;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date appointDate; //预定的预成班日期
 
 }
