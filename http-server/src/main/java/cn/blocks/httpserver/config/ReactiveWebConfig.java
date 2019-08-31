@@ -1,4 +1,4 @@
-package cn.blocks.userservice.config;
+package cn.blocks.httpserver.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter;
 
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
@@ -15,13 +15,14 @@ import java.util.Date;
 
 /**
  * @description
+ *          ReactiveWebConfig
+ *
  * @auther Somnus丶y
- * @date 2019/8/30 19:22
+ * @date 2019/8/31 14:57
  */
 @Configuration
 @Slf4j
-public class WebConfigBeans {
-
+public class ReactiveWebConfig {
     @Autowired
     private RequestMappingHandlerAdapter handlerAdapter;
 
@@ -35,7 +36,7 @@ public class WebConfigBeans {
         if (initializer.getConversionService() != null) {
             GenericConversionService genericConversionService = (GenericConversionService) initializer
                     .getConversionService();
-            genericConversionService.addConverter(String.class, Date.class, new String2DateConverter());
+            genericConversionService.addConverter(String.class, Date.class, new ReactiveWebConfig.String2DateConverter());
         }
     }
 
@@ -51,6 +52,5 @@ public class WebConfigBeans {
                 return null;
             }
         }
-
     }
 }
