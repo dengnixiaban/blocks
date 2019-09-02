@@ -26,6 +26,7 @@
         <module>common-utils</module>
         <module>http-client</module>
         <module>http-server</module>
+        <module>common-disruptor</module>
 
         <!--user-->
         <module>user-api</module>
@@ -42,6 +43,7 @@
         <caffeine.version>2.7.0</caffeine.version>
         <lang3.version>3.9</lang3.version>
         <fastjson.version>1.2.59</fastjson.version>
+        <disruptor.version>3.4.2</disruptor.version>
     </properties>
 
     <dependencies>
