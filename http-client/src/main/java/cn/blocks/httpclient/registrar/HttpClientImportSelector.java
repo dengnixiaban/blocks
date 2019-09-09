@@ -1,5 +1,6 @@
 package cn.blocks.httpclient.registrar;
 
+import cn.blocks.httpclient.config.HttpClientBootstrapConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -10,14 +11,11 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.util.StringUtils;
 
-import javax.validation.BootstrapConfiguration;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +36,8 @@ public class HttpClientImportSelector implements DeferredImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        // Use names and ensure unique to protect against duplicates
         List<String> names = new ArrayList<>(SpringFactoriesLoader
-                .loadFactoryNames(BootstrapConfiguration.class, classLoader));
-        /*names.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(
-                this.environment.getProperty("spring.cloud.bootstrap.sources", ""))));
-*/
+                .loadFactoryNames(HttpClientBootstrapConfiguration.class, classLoader));
         List<OrderedAnnotatedElement> elements = new ArrayList<>();
         for (String name : names) {
             try {

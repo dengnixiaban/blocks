@@ -23,8 +23,8 @@ public class UserController {
 
     @RequestMapping(value = "/user-info",method = RequestMethod.GET)
     Mono<UserDTO> userInfo(UserDTO userDTO){
-        Mono<UserDTO> userDTOMono = userService.userInfo(userDTO);
-        return userDTOMono;
+        UserDTO userDTOMono = userService.userInfo(userDTO);
+        return Mono.justOrEmpty(userDTOMono);
     }
 
 }

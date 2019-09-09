@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @Configuration
 @ConditionalOnClass({ Feign.class})
+@Order(value = 2)
 public class FeignConfiguration {
 
     /**
@@ -40,5 +42,21 @@ public class FeignConfiguration {
                    !AnnotatedElementUtils.hasAnnotation(beanType, FeignClient.class);
         }
     }
+
+
+    /**
+     * @description
+     *          feign 拦截器
+     *
+     * @return cn.blocks.httpclient.config.FeignRequestInterceptor
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/9
+     */
+    @Bean
+    public FeignRequestInterceptor feignRequestInterceptor(){
+        return new FeignRequestInterceptor();
+    }
+
 
 }

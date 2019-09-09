@@ -1,0 +1,5 @@
+# httpclient Bootstrap components
+cn.blocks.httpclient.config.HttpClientBootstrapConfiguration=\
+cn.blocks.httpclient.config.FeignConfiguration,\
+cn.blocks.httpclient.config.HttpClientConfiguration
+# others

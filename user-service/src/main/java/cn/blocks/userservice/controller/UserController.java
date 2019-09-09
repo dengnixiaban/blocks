@@ -2,7 +2,7 @@ package cn.blocks.userservice.controller;
 
 import cn.blocks.commonutils.Utils.LogUtils;
 import cn.blocks.userapi.model.UserDTO;
-import cn.blocks.userapi.service.IUserService;
+import cn.blocks.userapi.service.mono.IUserService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;

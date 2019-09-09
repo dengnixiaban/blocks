@@ -1,6 +1,6 @@
 package cn.blocks.webadmin.remote.normal;
 
-import cn.blocks.userapi.service.IUserService;
+import cn.blocks.userapi.service.normal.IUserService;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**

@@ -27,6 +27,6 @@ management:
 
 ## 日志配置
 logging:
-  config: src/main/resources/logback.xml
+  config: user-service/src/main/resources/logback.xml
   level:
     com.github.springbootmiaosha.dao: trace
