@@ -1,6 +1,10 @@
 package cn.blocks.httpclient.config;
 
+import cn.blocks.httpclient.interceptor.FeignClientInterceptor;
+import cn.blocks.httpclient.interceptor.FeignGetBeanInterceptor;
+import cn.blocks.httpclient.interceptor.FeignRequestInterceptor;
 import feign.Feign;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -48,7 +52,7 @@ public class FeignConfiguration {
      * @description
      *          feign 拦截器
      *
-     * @return cn.blocks.httpclient.config.FeignRequestInterceptor
+     * @return cn.blocks.httpclient.interceptor.FeignRequestInterceptor
      * @throws
      * @author Somnus丶y
      * @date 2019/9/9
@@ -56,6 +60,13 @@ public class FeignConfiguration {
     @Bean
     public FeignRequestInterceptor feignRequestInterceptor(){
         return new FeignRequestInterceptor();
+    }
+
+
+    @Bean
+    @ConditionalOnBean(FeignRequestInterceptor.class)
+    public FeignClientInterceptor feignGetBeanInterceptor(){
+        return new FeignGetBeanInterceptor();
     }
 
 

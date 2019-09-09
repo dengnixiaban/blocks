@@ -1,4 +1,4 @@
-package cn.blocks.commonutils.Utils;
+package cn.blocks.commonutils.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

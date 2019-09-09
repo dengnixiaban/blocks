@@ -1,6 +1,6 @@
 package cn.blocks.commondisruptor.common;
 
-import cn.blocks.commonutils.Utils.LogUtils;
+import cn.blocks.commonutils.utils.LogUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lmax.disruptor.ExceptionHandler;

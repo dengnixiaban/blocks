@@ -1,13 +1,13 @@
-package cn.blocks.httpclient.config;
+package cn.blocks.httpclient.interceptor;
 
+import cn.blocks.commonutils.utils.LogUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -16,13 +16,14 @@ import java.util.*;
 
 /**
  * @description
- *          pojo方式  get 请求feign
+ *          处理feign  get调用  javabean
  *
  * @auther Somnus丶y
- * @date 2019/8/30 19:10
+ * @date 2019/9/9 11:46
  */
+@Order(value = 1)
 @Slf4j
-public class FeignRequestInterceptor implements RequestInterceptor {
+public class FeignGetBeanInterceptor implements FeignClientInterceptor{
 
     @Resource
     private ObjectMapper objectMapper;
@@ -39,11 +40,22 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                 buildQuery(jsonNode, "", queries);
                 template.queries(queries);
             } catch (IOException e) {
-                log.error("【拦截GET请求POJO方式】-出错了：{}", ExceptionUtils.getStackFrames(e));
+                LogUtils.error(log,e,"【拦截GET请求POJO方式】-出错了：{%s}", ExceptionUtils.getStackFrames(e));
                 throw new RuntimeException();
             }
         }
     }
+
+    @Override
+    public boolean match(RequestTemplate template) {
+        if (HttpMethod.GET.name().equals(template.method())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
     private void buildQuery(JsonNode jsonNode, String path, Map<String, Collection<String>> queries) {
         // 叶子节点
@@ -77,5 +89,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             }
         }
     }
+
 
 }

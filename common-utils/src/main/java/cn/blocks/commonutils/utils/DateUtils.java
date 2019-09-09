@@ -1,4 +1,4 @@
-package cn.blocks.commonutils.Utils;
+package cn.blocks.commonutils.utils;
 
 /**
  * @description

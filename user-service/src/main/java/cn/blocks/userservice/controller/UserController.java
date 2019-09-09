@@ -1,6 +1,6 @@
 package cn.blocks.userservice.controller;
 
-import cn.blocks.commonutils.Utils.LogUtils;
+import cn.blocks.commonutils.utils.LogUtils;
 import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.userapi.service.mono.IUserService;
 import com.alibaba.fastjson.JSON;
