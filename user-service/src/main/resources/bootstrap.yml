@@ -27,6 +27,4 @@ management:
 
 ## 日志配置
 logging:
-  config: user-service/src/main/resources/logback.xml
-  level:
-    com.github.springbootmiaosha.dao: trace
+  path: D:/ycx/idea/workspace/blocks/logs/${spring.application.name}
