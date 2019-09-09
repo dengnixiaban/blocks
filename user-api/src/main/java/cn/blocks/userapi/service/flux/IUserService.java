@@ -1,7 +1,6 @@
 package cn.blocks.userapi.service.flux;
 
 import cn.blocks.userapi.model.UserDTO;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reactor.core.publisher.Flux;
@@ -18,6 +17,6 @@ public interface IUserService {
 
 
     @RequestMapping(value = "/user-info",method = RequestMethod.GET)
-    Flux<UserDTO> userInfo(@RequestBody(required = false) UserDTO userDTO);
+    Flux<UserDTO> userInfo(UserDTO userDTO);
 
 }
