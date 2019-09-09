@@ -27,4 +27,4 @@ management:
 
 ## 日志配置
 logging:
-  path: D:/ycx/idea/workspace/blocks/logs/${spring.application.name}
+  path: ../logs/${spring.application.name}
