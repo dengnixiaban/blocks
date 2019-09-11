@@ -10,6 +10,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -39,7 +40,7 @@ public class UserController implements IUserService {
 
 
     @RequestMapping(value = "/save",method = RequestMethod.PUT)
-    public Mono<UserDTO> user(@RequestBody(required = false) UserDTO userDTO){
+    public Mono<UserDTO> user(@RequestBody(required = false)@Validated UserDTO userDTO){
         UserPO userPO = new UserPO();
         BeanUtils.copyProperties(userDTO,userPO);
         userPO.setCreateTime(new Date());

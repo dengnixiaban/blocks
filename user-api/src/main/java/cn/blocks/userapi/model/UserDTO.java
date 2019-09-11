@@ -2,6 +2,8 @@ package cn.blocks.userapi.model;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @description
  *          用户dto
@@ -24,6 +26,7 @@ public class UserDTO extends BaseTimeDTO{
     /**
      * 用户账户
      */
+    @NotNull
     private String account;
 
     /**
