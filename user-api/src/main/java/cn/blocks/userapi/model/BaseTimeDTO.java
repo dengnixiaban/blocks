@@ -1,4 +1,4 @@
-package cn.blocks.commonmysql.model.po;
+package cn.blocks.userapi.model;
 
 import lombok.*;
 
@@ -16,7 +16,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseTimePO {
+public class BaseTimeDTO {
 
     /**
      * 创建时间

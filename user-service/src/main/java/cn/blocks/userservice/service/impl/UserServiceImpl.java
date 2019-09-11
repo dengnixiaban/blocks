@@ -1,8 +1,10 @@
 package cn.blocks.userservice.service.impl;
 
+import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.userservice.repository.dao.UserMapper;
 import cn.blocks.userservice.repository.po.UserPO;
 import cn.blocks.userservice.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long saveOne(UserPO user) {
-        return userMapper.saveOne(user);
+    public UserDTO saveOne(UserPO user) {
+        userMapper.saveOne(user);
+        UserDTO dto = new UserDTO();
+        BeanUtils.copyProperties(user,dto);
+        return dto;
     }
 
 }

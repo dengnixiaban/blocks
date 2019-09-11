@@ -1,9 +1,6 @@
 package cn.blocks.userapi.model;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 /**
  * @description
@@ -17,13 +14,43 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class UserDTO {
+public class UserDTO extends BaseTimeDTO{
 
-    private String id;
+    /**
+     * 用户唯一key
+     */
+    private Long id;
 
-    private String name;
+    /**
+     * 用户账户
+     */
+    private String account;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date appointDate; //预定的预成班日期
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
+     * 用户描述
+     */
+    private String desc;
+
+    /**
+     * 用户性别 1:女  -1男
+     */
+    private Integer gender;
+
+    /**
+     * 用户头像
+     */
+    private String icon;
+
+    /**
+     * 用户密码
+     */
+    private String password;
+
+
 
 }

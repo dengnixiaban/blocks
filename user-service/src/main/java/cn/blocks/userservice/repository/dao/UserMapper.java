@@ -1,10 +1,7 @@
 package cn.blocks.userservice.repository.dao;
 
 import cn.blocks.userservice.repository.po.UserPO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @description
@@ -18,9 +15,14 @@ public interface UserMapper {
     UserPO queryById(@Param("id") Long id);
 
 
-    @Insert("insert (id,account,nickName,desc,gender,icon,password,createTime,modifyTime,deleteTime,modifyId) values "
-            + "(#{id},#{account},#{nickName},#{desc},#{gender},#{icon},#{password},#{createTime},"
-            + "#{modifyTime},#{deleteTime},#{modifyId})")
+    @Insert("insert into t_users (`account`,`nickName`,`desc`,`gender`,`icon`,`password`,`createTime`,`modifyTime`,"
+            + "`deleteTime`,`modifyId`) "
+            + "values "
+            + "(#{account,jdbcType=VARCHAR},#{nickName,jdbcType=VARCHAR},#{desc,jdbcType=VARCHAR},"
+            + "#{gender,jdbcType=INTEGER},#{icon,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},"
+            + "#{modifyTime,jdbcType=TIMESTAMP},#{deleteTime,jdbcType=TIMESTAMP},#{modifyId,jdbcType=INTEGER})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+// 非自增主键返回形式   @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", resultType = Long.class, before = false)
     Long saveOne(UserPO user);
 
 }

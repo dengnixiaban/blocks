@@ -1,5 +1,6 @@
 package cn.blocks.userservice.service;
 
+import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.userservice.repository.po.UserPO;
 
 /**
@@ -14,6 +15,6 @@ public interface UserService {
 
     UserPO queryById(Long id);
 
-    Long saveOne(UserPO user);
+    UserDTO saveOne(UserPO user);
 
 }
