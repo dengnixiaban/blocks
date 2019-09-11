@@ -1,6 +1,7 @@
 package cn.blocks.httpserver.config;
 
 import cn.blocks.commonutils.utils.LogUtils;
+import cn.blocks.httpserver.aspect.LogAspect;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -169,6 +170,22 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+
+
+    /**
+     * @description
+     *          日志
+     *
+     * @return cn.blocks.httpserver.aspect.LogAspect
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/11
+     */
+    @Bean
+    public LogAspect logAspect(){
+        return new LogAspect();
     }
 
 }

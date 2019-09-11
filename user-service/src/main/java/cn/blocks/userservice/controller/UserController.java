@@ -1,6 +1,7 @@
 package cn.blocks.userservice.controller;
 
 import cn.blocks.commonutils.utils.LogUtils;
+import cn.blocks.httpserver.annotation.AccessLog;
 import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.userapi.service.mono.IUserService;
 import cn.blocks.userservice.repository.po.UserPO;
@@ -39,6 +40,7 @@ public class UserController implements IUserService {
     }
 
 
+    @AccessLog(desc = "/user/save")
     @RequestMapping(value = "/save",method = RequestMethod.PUT)
     public Mono<UserDTO> user(@RequestBody(required = false)@Validated UserDTO userDTO){
         UserPO userPO = new UserPO();
