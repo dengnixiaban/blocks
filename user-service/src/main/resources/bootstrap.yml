@@ -28,8 +28,7 @@ management:
 ## 日志配置
 logging:
   path: ../logs/${spring.application.name}
-  level:
-    cn.blocks.userservice.repository.dao: DEBUG
+
 
 #mysql
 blocks:
