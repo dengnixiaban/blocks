@@ -16,7 +16,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @EnableHttpClient
 @EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class, ValidateConfig.class})
-//todo 配置与feignclient冲突，待解决
+//todo WebConfig配置与feignclient冲突，待解决
 public class WebAdminApplication {
 
     public static void main(String[] args) {
