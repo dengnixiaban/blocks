@@ -2,7 +2,9 @@ package cn.blocks.commonutils.exception;
 
 /**
  * @description
- * @auther Somnus丶y
+ *          blocks 框架异常
+ *
+ * @author Somnus丶y
  * @date 2019/8/31 16:24
  */
 public class BlocksFrameWorkException extends RuntimeException{

@@ -1,5 +1,6 @@
 package cn.blocks.httpserver.controllerAdvice;
 
+import cn.blocks.commonutils.exception.BusinessException;
 import cn.blocks.commonutils.model.BaseResp;
 import cn.blocks.commonutils.model.HttpEnum;
 import cn.blocks.commonutils.utils.LogUtils;
@@ -26,6 +27,26 @@ public class HttpServerExceptionHandler {
 
 
 
+    /**
+     * @description
+     *          业务异常抓取
+     *
+     * @param e
+     * @return cn.blocks.commonutils.model.BaseResp
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/12
+     */
+    @ExcludAdvice
+    @ResponseBody
+    @ExceptionHandler({ BusinessException.class})
+    public BaseResp businessException(BusinessException e){
+        LogUtils.error(log,e,"ExceptionHandler获取MethodArgumentNotValidException异常");
+        BaseResp resp = new BaseResp();
+        resp.setCode(e.getCode());
+        resp.setMsg(e.getMsg());
+        return resp;
+    }
 
 
 
