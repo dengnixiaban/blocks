@@ -2,6 +2,7 @@ package cn.blocks.httpclient.config;
 
 import cn.blocks.httpclient.interceptor.FeignClientInterceptor;
 import cn.blocks.httpclient.interceptor.FeignGetBeanInterceptor;
+import cn.blocks.httpclient.interceptor.FeignLogInterceptor;
 import cn.blocks.httpclient.interceptor.FeignRequestInterceptor;
 import feign.Feign;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -68,6 +69,14 @@ public class FeignConfiguration {
     public FeignClientInterceptor feignGetBeanInterceptor(){
         return new FeignGetBeanInterceptor();
     }
+
+
+    @Bean
+    @ConditionalOnBean(FeignRequestInterceptor.class)
+    public FeignClientInterceptor feignLogInterceptor(){
+        return new FeignLogInterceptor();
+    }
+
 
 
 }

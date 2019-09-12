@@ -31,7 +31,7 @@ public class LogAspect {
     public void annotationPoinCut(){}
 
     @Around("annotationPoinCut()")
-    public Object after(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method targetMethod = methodSignature.getMethod();

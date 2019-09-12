@@ -13,6 +13,7 @@ eureka:
     service-url:
       defaultZone: http://blocks:blocks@94.191.94.146:7002/eureka/
     register-with-eureka: true
+    registry-fetch-interval-seconds: 5 #5秒刷新一下服务表
   instance:
     instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
     lease-renewal-interval-in-seconds: 10   #心跳

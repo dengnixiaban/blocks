@@ -2,8 +2,11 @@ package cn.blocks.commonutils.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @description
@@ -14,6 +17,71 @@ import java.util.Objects;
  */
 public class LogUtils {
 
+    /**
+     *
+     */
+    public static final String LOGID = "logId";
+
+    /**
+     * @description
+     *          初始化logid
+     *
+     * @return void
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/12
+     */
+    public static void initLogId(){
+        MDC.put(LOGID, UUID.randomUUID().toString().replaceAll("-",""));
+    }
+
+
+    /**
+     * @description
+     *          如果不存在，初始化logid
+     *
+     * @return void
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/12
+     */
+    public static void initLogIdIfAbsent(){
+        String logId = MDC.get(LOGID);
+        if(StringUtils.isEmpty(logId)){
+            logId = UUID.randomUUID().toString().replaceAll("-","");
+            MDC.put(LOGID,logId);
+        }
+    }
+
+
+
+    /**
+     * @description
+     *          设置logid
+     *
+     * @param logId
+     * @return void
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/12
+     */
+    public static void putLogId(String logId){
+        MDC.put(LOGID,logId);
+    }
+
+
+    /**
+     * @description
+     *          获取logid
+     *
+     * @return java.lang.String
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/12
+     */
+    public static String getLogId(){
+        return MDC.get(LOGID);
+    }
 
     /**
      * @description
