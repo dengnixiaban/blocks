@@ -4,6 +4,7 @@ import cn.blocks.commonmysql.annotation.EnableBlocksMysql;
 import cn.blocks.commonmysql.config.DruidConf;
 import cn.blocks.commonmysql.config.MybatisPlusConf;
 import cn.blocks.commonmysql.config.SingletonConfiguration;
+import cn.blocks.httpclient.annotation.EnableHttpClient;
 import cn.blocks.httpserver.annotation.EnableHttpServer;
 import cn.blocks.httpserver.config.AdviceConfig;
 import cn.blocks.httpserver.config.WebConfig;
@@ -21,6 +22,7 @@ import org.springframework.context.ApplicationContextAware;
 @ServletComponentScan(basePackages="cn.blocks")
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class})
 @EnableEurekaClient
+@EnableHttpClient
 @EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class})
 @EnableBlocksMysql(defaultConfiguration = { SingletonConfiguration.class, DruidConf.class, MybatisPlusConf.class })
 @MapperScan("cn.blocks.userservice.repository.dao")
