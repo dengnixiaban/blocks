@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/yuanchangxin/blocks-config.git
+          uri: https://github.com/somnusy/blocks-config.git
 #          uri: git@github.com:yuanchangxin/blocks-config.git
           basedir: D:\ycx\idea\workspace\blocks\config
           search-paths: '{application}'
@@ -44,5 +44,8 @@ spring:
 #                        Cin9afyeAp/39YbNAAAAGXJvY2twYW5kYUBERVNLVE9QLUk0U01NNEcB
 #                        -----END OPENSSH PRIVATE KEY-----
 
-          username: yuanchangxin
+          username: somnusy
           password: YCXlqh3172678
+## 日志配置
+logging:
+  path: ../logs/${spring.application.name}

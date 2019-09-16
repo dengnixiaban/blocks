@@ -32,3 +32,6 @@ eureka:
   server:
     enable-self-preservation: false #关闭保护机制
     responseCacheUpdateIntervalMs: 5000  #5秒刷新一下缓存
+## 日志配置
+logging:
+  path: ../logs/${spring.application.name}
