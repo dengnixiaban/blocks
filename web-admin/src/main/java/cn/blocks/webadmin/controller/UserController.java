@@ -1,5 +1,6 @@
 package cn.blocks.webadmin.controller;
 
+import cn.blocks.commonutils.model.BaseResp;
 import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.webadmin.remote.normal.FeignUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 /**
  * @description
@@ -23,8 +26,8 @@ public class UserController {
 
     @RequestMapping(value = "/user-info",method = RequestMethod.GET)
     Mono<UserDTO> userInfo(UserDTO userDTO){
-        UserDTO userDTOMono = userService.userInfo(userDTO);
-        return Mono.justOrEmpty(userDTOMono);
+        BaseResp<UserDTO> resp = userService.userInfo(userDTO);
+        return Mono.justOrEmpty(Optional.of(resp).orElse(new BaseResp<>()).getData());
     }
 
 }

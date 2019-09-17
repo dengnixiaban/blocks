@@ -18,7 +18,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +38,7 @@ import java.util.List;
 @Configuration
 @Slf4j
 @EnableWebMvc
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig/* implements WebMvcConfigurer */{
 
     @Autowired
     private RequestMappingHandlerAdapter handlerAdapter;
@@ -83,7 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
      * @author Somnus丶y
      * @date 2019/9/11
      */
-    @Override
+//    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         /*FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         //设置默认编码
@@ -162,7 +161,7 @@ public class WebConfig implements WebMvcConfigurer {
      * @author Somnus丶y
      * @date 2019/9/11
      */
-    @Override
+//    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("swagger-ui.html")

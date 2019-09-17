@@ -1,5 +1,6 @@
 package cn.blocks.userapi.service.normal;
 
+import cn.blocks.commonutils.model.BaseResp;
 import cn.blocks.userapi.model.UserDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,6 @@ public interface IUserService {
 
 
     @RequestMapping(value = "/user-info",method = RequestMethod.GET)
-    UserDTO userInfo(UserDTO userDTO);
+    BaseResp<UserDTO> userInfo(UserDTO userDTO);
 
 }
