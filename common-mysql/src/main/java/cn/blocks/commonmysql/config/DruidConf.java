@@ -71,7 +71,7 @@ public class DruidConf {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         DruidProperties druid = singletonConfigurationProperties.getDruid();
         //设置登录查看信息的账号密码.
-        servletRegistrationBean.addInitParameter("loginUsername", druid.getLoginPassword());
+        servletRegistrationBean.addInitParameter("loginUsername", druid.getLoginUsername());
         servletRegistrationBean.addInitParameter("loginPassword", druid.getLoginPassword());
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         //initParameters.put("allow", allowIp); // IP白名单 (没有配置或者为空，则允许所有访问)
