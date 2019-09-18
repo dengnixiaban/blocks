@@ -1,7 +1,7 @@
 package cn.blocks.httpserver.config;
 
-import cn.blocks.httpserver.controllerAdvice.HttpServerExceptionHandler;
-import cn.blocks.httpserver.controllerAdvice.RespDataAdvice;
+import cn.blocks.httpserver.controlleradvice.HttpServerExceptionHandler;
+import cn.blocks.httpserver.controlleradvice.RespDataAdvice;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

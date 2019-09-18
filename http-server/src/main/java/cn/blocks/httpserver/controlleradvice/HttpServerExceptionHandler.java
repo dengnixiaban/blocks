@@ -1,4 +1,4 @@
-package cn.blocks.httpserver.controllerAdvice;
+package cn.blocks.httpserver.controlleradvice;
 
 import cn.blocks.commonutils.exception.BusinessException;
 import cn.blocks.commonutils.model.BaseResp;
