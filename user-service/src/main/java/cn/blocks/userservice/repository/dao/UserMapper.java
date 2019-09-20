@@ -1,6 +1,7 @@
 package cn.blocks.userservice.repository.dao;
 
 import cn.blocks.userservice.repository.po.UserPO;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 
 /**
@@ -9,7 +10,7 @@ import org.apache.ibatis.annotations.*;
  * @date 2019/9/10 18:56
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<UserPO> {
 
     @Select("select * from t_users where id = #{id}")
     UserPO queryById(@Param("id") Long id);

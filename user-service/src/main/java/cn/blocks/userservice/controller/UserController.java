@@ -36,6 +36,9 @@ public class UserController implements IUserService {
     public Mono<UserDTO> userInfo(@ModelAttribute UserDTO userDTO) {
         LogUtils.info(log,"访问user-info接口,入参%s",
                 JSON.toJSONString(userDTO, SerializerFeature.DisableCircularReferenceDetect));
+        UserPO userPO = userService.queryById(userDTO.getId());
+        UserDTO dto = new UserDTO();
+        BeanUtils.copyProperties(userPO,dto);
         return Mono.just(Optional.ofNullable(userDTO).orElse(new UserDTO()));
     }
 
