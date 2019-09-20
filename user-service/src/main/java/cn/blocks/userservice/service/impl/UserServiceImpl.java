@@ -7,6 +7,7 @@ import cn.blocks.userservice.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserPO queryById(@NonNull Long id) {
+        Assert.notNull(id,"id不能为空！");
         return userMapper.queryById(id);
     }
 

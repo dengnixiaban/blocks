@@ -2,6 +2,7 @@ package cn.blocks.userservice;
 
 import cn.blocks.userservice.repository.po.UserPO;
 import cn.blocks.userservice.service.UserService;
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class UserServiceTests {
         one.setDesc("积木零号用户");
         one.setGender(-1);
         userService.saveOne(one);
+    }
+
+
+    @Test
+    public void findTest(){
+        UserPO userPO = userService.queryById(null);
+        System.out.println(JSON.toJSONString(userPO));
     }
 
 }
