@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @description
@@ -18,8 +19,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class UserDTO extends BaseTimeDTO{
+public class UserDTO extends BaseTimeDTO implements Serializable {
 
+    private static final long serialVersionUID = -1716225104035236394L;
     /**
      * 用户唯一key
      */

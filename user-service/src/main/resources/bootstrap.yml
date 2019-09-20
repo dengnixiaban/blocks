@@ -127,6 +127,22 @@ blocks:
         # 合并多个DruidDataSource的监控数据
         useGlobalDataSourceStat: true
 
+  redis:
+    singleton:
+      enable: true
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+#      password: 123456
+      timeout: 20000
+      lettuce:
+        pool:
+          max-active: 8
+          min-idle: 0
+          max-wait: -1
+          max-idle: 8
+        shutdown-timeout: 10000
+
 
 # ====================MybatisPlus====================
 mybatisPlus:
@@ -149,3 +165,4 @@ mybatisPlus:
 swagger:
   basePackage: cn.blocks.userservice.controller
   serviceUrl: ${spring.cloud.client.ip-address}:${server.port}
+
