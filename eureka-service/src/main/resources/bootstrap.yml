@@ -19,6 +19,9 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS   #暴露actuator的所有端口
 eureka:
   client:
     service-url:

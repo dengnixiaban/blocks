@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 @ConditionalOnClass({ Feign.class})
 @Order(value = 2)
-public class FeignConfiguration {
+public class FeignConfiguration implements HttpClientBootstrapConfiguration{
 
     /**
      * 禁止feign mapping到mvc

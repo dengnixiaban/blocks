@@ -17,6 +17,8 @@ eureka:
 #    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     lease-renewal-interval-in-seconds: 10   #心跳
+    health-check-url-path: /actuator/health
+
 management:
   security:
     enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
@@ -24,7 +26,9 @@ management:
     web:
       exposure:
         include: "*"
-
+  endpoint:
+    health:
+      show-details: ALWAYS
 ## 日志配置
 logging:
   path: ../logs/${spring.application.name}

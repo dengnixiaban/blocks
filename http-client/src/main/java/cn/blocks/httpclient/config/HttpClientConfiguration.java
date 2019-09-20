@@ -14,7 +14,7 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration
 @Order(value = 1)
-public class HttpClientConfiguration {
+public class HttpClientConfiguration implements HttpClientBootstrapConfiguration{
 
 
 
