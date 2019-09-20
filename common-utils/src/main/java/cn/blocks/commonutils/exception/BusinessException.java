@@ -6,7 +6,7 @@ import lombok.Data;
  * @description
  *      业务异常
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/12 12:27
  */
 @Data

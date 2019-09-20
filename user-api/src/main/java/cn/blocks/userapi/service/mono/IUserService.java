@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
  * @description
  *          用户服务API
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 17:37
  */
 @RequestMapping(value = "/user")

@@ -18,7 +18,7 @@ import java.util.Map;
  *          AnnotatedElement for order
  *       {@link org.springframework.core.annotation.Order}
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/9 12:21
  */
 @Data

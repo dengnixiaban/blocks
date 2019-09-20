@@ -19,6 +19,13 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * @description
+ *      用户服务启动入口
+ *
+ * @author Somnus丶y
+ * @date 2019/9/20
+ */
 @ServletComponentScan(basePackages="cn.blocks")
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class})
 @EnableEurekaClient

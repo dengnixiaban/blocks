@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * @description
  *          disruptor 异常处理
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/2 9:58
  */
 @Slf4j

@@ -23,7 +23,7 @@ import java.util.Map;
  * @description
  *          pojo方式  get 请求feign
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 19:10
  */
 @Slf4j

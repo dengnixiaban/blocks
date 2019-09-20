@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @description
  *          druid配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 11:56
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

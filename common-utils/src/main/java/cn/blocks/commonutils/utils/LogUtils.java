@@ -12,7 +12,7 @@ import java.util.UUID;
  * @description
  *          日志工具类
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/2 10:42
  */
 public class LogUtils {

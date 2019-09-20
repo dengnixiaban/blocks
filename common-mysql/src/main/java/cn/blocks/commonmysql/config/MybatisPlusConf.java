@@ -25,7 +25,7 @@ import java.util.Objects;
  * @description
  *          mybaties plus 配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 12:14
  */
 @Slf4j

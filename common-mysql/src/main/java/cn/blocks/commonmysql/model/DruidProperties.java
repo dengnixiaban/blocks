@@ -6,7 +6,7 @@ import lombok.*;
  * @description
  *          druid详细属性
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 16:32
  */
 @Data

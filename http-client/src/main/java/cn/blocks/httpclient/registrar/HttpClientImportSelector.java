@@ -18,7 +18,7 @@ import java.util.List;
  * @description
  *          httpclient 自动配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/6 9:41
  */
 @Slf4j

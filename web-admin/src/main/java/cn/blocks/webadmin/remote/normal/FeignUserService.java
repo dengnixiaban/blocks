@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 /**
  * @description
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 18:48
  */
 @FeignClient(value = "user-service")

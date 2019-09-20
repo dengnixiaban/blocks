@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @description
  *          单例mysql配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 12:03
  */
 @Data

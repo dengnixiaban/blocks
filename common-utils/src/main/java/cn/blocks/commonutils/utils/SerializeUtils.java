@@ -6,7 +6,7 @@ package cn.blocks.commonutils.utils;
  *          <p>
  *          {json xml protobuf bson } and more
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/28 10:50
  */
 public class SerializeUtils {

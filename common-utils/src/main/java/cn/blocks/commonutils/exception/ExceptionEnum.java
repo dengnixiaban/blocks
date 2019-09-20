@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
  *          异常枚举
  *   {@code 异常码}
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/31 17:40
  */
 @AllArgsConstructor

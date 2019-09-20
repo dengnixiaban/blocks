@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @description
  *          feign配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 19:03
  */
 @Configuration

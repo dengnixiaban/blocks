@@ -9,7 +9,7 @@ import org.springframework.core.annotation.Order;
  * @description
  *      httpclient 统一配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/6 15:01
  */
 @Configuration

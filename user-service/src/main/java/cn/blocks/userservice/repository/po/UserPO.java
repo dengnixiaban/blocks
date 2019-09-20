@@ -7,7 +7,7 @@ import lombok.*;
  * @description
  *          用户PO
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 18:48
  */
 @Data

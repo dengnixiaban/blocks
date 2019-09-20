@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @description
  *          生成器
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 11:22
  */
 public class MybatisPlusGenerator {

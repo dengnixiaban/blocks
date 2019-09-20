@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux;
 
 /**
  * @description
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/31 9:59
  */
 @Headers({ "Accept: application/json" })

@@ -8,7 +8,7 @@ import java.util.Date;
  * @description
  *          公共时间字段
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 18:46
  */
 @Data

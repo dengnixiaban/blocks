@@ -17,7 +17,7 @@ import java.util.Objects;
  * @description
  *          响应对象封装
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 17:38
  */
 @Slf4j

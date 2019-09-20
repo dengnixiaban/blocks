@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @description
  *          test for userservice
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 19:15
  */
 @RunWith(SpringRunner.class)

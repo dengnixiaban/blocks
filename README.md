@@ -1,5 +1,5 @@
 # blocks
-building blocks   @auther somnus丶y
+building blocks   @author somnus丶y
 
 gateway  netword  7000-7999
 

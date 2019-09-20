@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description
  *          http server 异常抓取
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 17:14
  */
 @Slf4j

@@ -17,7 +17,7 @@ import java.util.Date;
  * @description
  *          ReactiveWebConfig
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/31 14:57
  */
 @Configuration

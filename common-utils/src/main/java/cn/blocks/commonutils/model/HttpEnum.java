@@ -4,7 +4,7 @@ package cn.blocks.commonutils.model;
  * @description
  *          http码 字典
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 17:22
  */
 public enum  HttpEnum {

@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
  * @description
  *          日志拦截  ->传递
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/12 17:08
  */
 @Order(value = 0)

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @description
  *          动态获取数据源切换
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/11 18:20
  */
 @Aspect

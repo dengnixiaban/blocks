@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * @description
  *          用户dto
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 17:05
  */
 @Data

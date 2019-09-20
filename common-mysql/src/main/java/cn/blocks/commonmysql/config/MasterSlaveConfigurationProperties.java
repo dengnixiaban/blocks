@@ -15,7 +15,7 @@ import java.util.Map;
  * @description
  *          主从mysql配置参数
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 12:14
  */
 @Configuration

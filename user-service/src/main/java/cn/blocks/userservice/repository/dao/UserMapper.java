@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 /**
  * @description
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 18:56
  */
 @Mapper

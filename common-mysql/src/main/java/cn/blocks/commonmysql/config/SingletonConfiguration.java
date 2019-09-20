@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @description
  *          单例mysql配置
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/10 12:05
  */
 @Slf4j

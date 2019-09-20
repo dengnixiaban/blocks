@@ -18,7 +18,7 @@ import java.util.*;
  * @description
  *          处理feign  get调用  javabean
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/9 11:46
  */
 @Order(value = 1)

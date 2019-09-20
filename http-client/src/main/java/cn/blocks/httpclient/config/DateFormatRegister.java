@@ -14,7 +14,7 @@ import java.util.Date;
  *
  *     解决传输时间少8小时问题
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/8/30 19:19
  */
 public class DateFormatRegister implements FeignFormatterRegistrar {

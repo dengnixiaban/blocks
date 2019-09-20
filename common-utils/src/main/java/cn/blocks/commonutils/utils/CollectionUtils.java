@@ -10,7 +10,7 @@ import java.util.Collection;
  *      <p>
  *       extends   {@link org.springframework.util.CollectionUtils}
  *
- * @auther Somnus丶y
+ * @author Somnus丶y
  * @date 2019/9/2 9:21
  */
 public class CollectionUtils extends org.springframework.util.CollectionUtils {
