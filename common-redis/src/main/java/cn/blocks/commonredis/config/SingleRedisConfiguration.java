@@ -1,5 +1,7 @@
 package cn.blocks.commonredis.config;
 
+import cn.blocks.commonredis.service.IRedisClient;
+import cn.blocks.commonredis.service.SingleRedisClient;
 import com.alibaba.fastjson.parser.ParserConfig;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,5 +114,22 @@ public class SingleRedisConfiguration {
         template.afterPropertiesSet();
         return template;
     }
+
+
+
+    /**
+     * @description
+     *          单例redis 服务bean
+     *
+     * @return cn.blocks.commonredis.service.IRedisClient
+     * @throws
+     * @author Somnus丶y
+     * @date 2019/9/20
+     */
+    @Bean
+    public IRedisClient SingleRedisClient(){
+        return new SingleRedisClient();
+    }
+
 
 }
