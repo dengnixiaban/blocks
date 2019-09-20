@@ -145,9 +145,7 @@ mybatisPlus:
     logicDeleteValue: 0
     logicNotDeleteValue: 1
 
-
-# info信息会显示到SpringBootAdmin的server端，这里取的是pom文件中的数据
-#info:
-#  version: @project.version@
-#  groupId: @project.groupId@
-#  artifactId: @project.artifactId@
+#swagger
+swagger:
+  basePackage: cn.blocks.userservice.controller
+  serviceUrl: ${spring.cloud.client.ip-address}:${server.port}

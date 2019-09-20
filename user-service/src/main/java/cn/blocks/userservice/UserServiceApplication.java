@@ -7,6 +7,7 @@ import cn.blocks.commonmysql.config.SingletonConfiguration;
 import cn.blocks.httpclient.annotation.EnableHttpClient;
 import cn.blocks.httpserver.annotation.EnableHttpServer;
 import cn.blocks.httpserver.config.AdviceConfig;
+import cn.blocks.httpserver.config.SwaggerConfiguration;
 import cn.blocks.httpserver.config.WebConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
@@ -30,7 +31,7 @@ import org.springframework.context.ApplicationContextAware;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class})
 @EnableEurekaClient
 @EnableHttpClient
-@EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class})
+@EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class, SwaggerConfiguration.class })
 @EnableBlocksMysql(defaultConfiguration = { SingletonConfiguration.class, DruidConf.class, MybatisPlusConf.class })
 @MapperScan("cn.blocks.userservice.repository.dao")
 public class UserServiceApplication implements ApplicationContextAware {

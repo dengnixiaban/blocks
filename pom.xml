@@ -61,6 +61,7 @@
         <disruptor.version>3.4.2</disruptor.version>
         <druid.version>1.1.20</druid.version>
         <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>

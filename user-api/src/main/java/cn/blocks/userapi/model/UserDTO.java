@@ -1,5 +1,6 @@
 package cn.blocks.userapi.model;
 
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
  * @author Somnus丶y
  * @date 2019/8/30 17:05
  */
+@ApiModel("用户dto实体")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -66,7 +66,7 @@ public class RespDataAdvice implements ResponseBodyAdvice {
         //静态资源过滤
         if(path.contains(".css")|| path.contains(".js") || path.contains(".png")
            || path.contains(".jpg") || path.contains(".jpeg")|| path.contains(".html")
-           ||path.contains("/swagger") || path.contains("/v2/swagger"))
+           ||path.contains("/swagger") || path.contains("/v2/swagger")||path.contains("api-docs"))
         {
             return body;
         }
