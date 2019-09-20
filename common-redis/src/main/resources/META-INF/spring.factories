@@ -1,0 +1,6 @@
+# common-redis Bootstrap components
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.blocks.commonredis.config.SingleRedisConfiguration,\
+
+  
+# others
