@@ -6,16 +6,23 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
@@ -114,6 +121,23 @@ public class SingleRedisConfiguration {
         template.afterPropertiesSet();
         return template;
     }
+
+
+//    @Bean  todo
+//    @ConditionalOnMissingBean(name = "reactiveRedisTemplate")
+//    @ConditionalOnBean(ReactiveRedisConnectionFactory.class)
+//    public ReactiveRedisTemplate<Object, Object> reactiveRedisTemplate(
+//            ReactiveRedisConnectionFactory reactiveRedisConnectionFactory, ResourceLoader resourceLoader) {
+//        JdkSerializationRedisSerializer jdkSerializer = new JdkSerializationRedisSerializer(
+//                resourceLoader.getClassLoader());
+//        RedisSerializationContext<Object, Object> serializationContext = RedisSerializationContext
+//                .newSerializationContext().key(jdkSerializer).value(jdkSerializer).hashKey(jdkSerializer)
+//                .hashValue(jdkSerializer).build();
+//        return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
+//    }
+
+
+
 
 
 
