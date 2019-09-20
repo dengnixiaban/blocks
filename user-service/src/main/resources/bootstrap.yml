@@ -6,6 +6,13 @@ spring:
       uri: http://94.191.94.146:7001/        #Config server的uri
       profile: dev                       #指定的环境
       label: master                      #指定分支
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8769
+#        instance:
+#          service-base-url: http://${spring.cloud.client.ip-address}:${server.port}
+
 server:
   port: 8081
 eureka:
@@ -137,3 +144,10 @@ mybatisPlus:
     #逻辑删除配置
     logicDeleteValue: 0
     logicNotDeleteValue: 1
+
+
+# info信息会显示到SpringBootAdmin的server端，这里取的是pom文件中的数据
+#info:
+#  version: @project.version@
+#  groupId: @project.groupId@
+#  artifactId: @project.artifactId@

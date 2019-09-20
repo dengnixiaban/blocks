@@ -58,8 +58,12 @@ public class RespDataAdvice implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType,
                                             ServerHttpRequest request, ServerHttpResponse response) {
-        //静态资源过滤
         String path = request.getURI().getPath();
+        //actuator过滤
+        if(path.contains("actuator")){
+            return body;
+        }
+        //静态资源过滤
         if(path.contains(".css")|| path.contains(".js") || path.contains(".png")
            || path.contains(".jpg") || path.contains(".jpeg")|| path.contains(".html")
            ||path.contains("/swagger") || path.contains("/v2/swagger"))
