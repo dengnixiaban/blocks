@@ -143,6 +143,12 @@ blocks:
           max-idle: 8
         shutdown-timeout: 10000
 
+  mongo:
+    singleton:
+      enable: true
+      address: 127.0.0.1:27017
+      database: blocks
+
 
 # ====================MybatisPlus====================
 mybatisPlus:

@@ -1,0 +1,6 @@
+# common-mongo Bootstrap components
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.blocks.commonmongodb.config.SingleMongoConfiguration
+
+  
+# others

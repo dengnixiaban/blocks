@@ -11,6 +11,8 @@ import cn.blocks.httpserver.config.SwaggerConfiguration;
 import cn.blocks.httpserver.config.WebConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -19,6 +21,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
  * @description
@@ -34,7 +37,13 @@ import org.springframework.context.ApplicationContextAware;
 @EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class, SwaggerConfiguration.class })
 @EnableBlocksMysql(defaultConfiguration = { SingletonConfiguration.class, DruidConf.class, MybatisPlusConf.class })
 @MapperScan("cn.blocks.userservice.repository.dao")
-public class UserServiceApplication implements ApplicationContextAware {
+public class UserServiceApplication implements ApplicationContextAware, CommandLineRunner {
+
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
 
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApplication.class, args);
@@ -42,6 +51,14 @@ public class UserServiceApplication implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println(1);
+        this.applicationContext = applicationContext;
     }
+
+    @Override
+    public void run(String... args) throws Exception {
+//        UserEntity userEntity = new UserEntity();
+//        userEntity.setName("111");
+//        mongoTemplate.insert(userEntity);
+    }
+
 }
