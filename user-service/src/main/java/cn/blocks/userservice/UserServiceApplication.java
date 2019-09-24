@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -31,7 +32,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
  * @date 2019/9/20
  */
 @ServletComponentScan(basePackages="cn.blocks")
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class})
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
+                                   HttpMessageConvertersAutoConfiguration.class,
+                                   MongoReactiveDataAutoConfiguration.class})
 @EnableEurekaClient
 @EnableHttpClient
 @EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class, SwaggerConfiguration.class })

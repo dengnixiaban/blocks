@@ -5,19 +5,31 @@ import com.mongodb.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.mongo.MongoClientSettingsBuilderCustomizer;
+import org.springframework.boot.autoconfigure.mongo.MongoProperties;
+import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.ReactiveMongoClientFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
+import org.springframework.data.mongodb.core.*;
 import org.springframework.data.mongodb.core.convert.*;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @description
@@ -29,10 +41,18 @@ import java.util.Objects;
 @Configuration
 @ConditionalOnProperty(value = "blocks.mongo.singleton.enable",havingValue = "true")
 @EnableConfigurationProperties(SingleMongoProperties.class)
+
+@Import(MongoDataConfiguration.class)
+@AutoConfigureAfter(MongoReactiveAutoConfiguration.class)
 public class SingleMongoConfiguration {
 
     @Autowired
     private SingleMongoProperties properties;
+
+    private com.mongodb.reactivestreams.client.MongoClient mongo;
+
+    @Autowired
+    private ObjectProvider<MongoClientSettings> settings;
 
 
 
@@ -142,6 +162,59 @@ public class SingleMongoConfiguration {
     MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
     }*/
+
+
+
+
+    /***********************************************reactive***************************************************/
+
+    @Bean
+    @ConditionalOnMissingBean
+    public com.mongodb.reactivestreams.client.MongoClient reactiveStreamsMongoClient(
+            Environment environment,
+            ObjectProvider<MongoClientSettingsBuilderCustomizer> builderCustomizers,
+            MongoClientSettings settings) {
+
+        MongoProperties mongoProperties = new MongoProperties();
+        String[] hostAndPort = properties.getAddress().split(":");
+        String host = hostAndPort[0];
+        Integer port = Integer.parseInt(hostAndPort[1]);
+        mongoProperties.setHost(host);
+        mongoProperties.setPort(port);
+        mongoProperties.setDatabase(properties.getDatabase());
+        ReactiveMongoClientFactory factory = new ReactiveMongoClientFactory(mongoProperties, environment,
+                builderCustomizers.orderedStream().collect(Collectors.toList()));
+        this.mongo = factory.createMongoClient(settings);
+        return this.mongo;
+    }
+
+    @Bean
+    @Primary
+    public ReactiveMongoOperations reactiveMongoTemplate(ReactiveMongoDatabaseFactory reactiveMongoDbFactory,
+                                                         MappingMongoConverter mappingMongoConverter) throws Exception {
+        return new ReactiveMongoTemplate(reactiveMongoDbFactory, mappingMongoConverter);
+    }
+
+    @Bean
+    public ReactiveMongoDatabaseFactory reactiveMongoDbFactory(
+            com.mongodb.reactivestreams.client.MongoClient reactiveStreamsMongoClient
+    ) {
+        return new SimpleReactiveMongoDatabaseFactory(reactiveStreamsMongoClient, properties.getDatabase());
+    }
+
+/*
+    @Bean
+    public MongoClientSettings getSettings(ObjectProvider<MongoClientSettings> settings){
+        return settings.getIfAvailable();
+    }*/
+
+    @PreDestroy
+    public void close() {
+        if (this.mongo != null) {
+            this.mongo.close();
+        }
+    }
+
 
 
 }

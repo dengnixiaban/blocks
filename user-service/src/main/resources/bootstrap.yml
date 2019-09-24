@@ -6,6 +6,8 @@ spring:
       uri: http://94.191.94.146:7001/        #Config server的uri
       profile: dev                       #指定的环境
       label: master                      #指定分支
+  main:
+    allow-bean-definition-overriding: true      #允许覆盖bean
 #  boot:
 #    admin:
 #      client:
