@@ -12,18 +12,22 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.time.Duration;
 
 /**
  * @description
@@ -123,18 +127,47 @@ public class SingleRedisConfiguration {
     }
 
 
-//    @Bean  todo
-//    @ConditionalOnMissingBean(name = "reactiveRedisTemplate")
-//    @ConditionalOnBean(ReactiveRedisConnectionFactory.class)
-//    public ReactiveRedisTemplate<Object, Object> reactiveRedisTemplate(
-//            ReactiveRedisConnectionFactory reactiveRedisConnectionFactory, ResourceLoader resourceLoader) {
-//        JdkSerializationRedisSerializer jdkSerializer = new JdkSerializationRedisSerializer(
-//                resourceLoader.getClassLoader());
-//        RedisSerializationContext<Object, Object> serializationContext = RedisSerializationContext
-//                .newSerializationContext().key(jdkSerializer).value(jdkSerializer).hashKey(jdkSerializer)
-//                .hashValue(jdkSerializer).build();
-//        return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
-//    }
+    /*******************************************reactive************************************************/
+
+    @Primary
+    @Bean("reactiveRedisConnectionFactory")
+    public ReactiveRedisConnectionFactory lettuceConnectionFactory() {
+
+        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
+//                .useSsl().and()
+                .commandTimeout(Duration.ofSeconds(2))
+                .shutdownTimeout(Duration.ZERO)
+                .build();
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new
+                RedisStandaloneConfiguration();
+        redisStandaloneConfiguration.setHostName(redisSingleProperties.getHost());
+        redisStandaloneConfiguration.setPort(redisStandaloneConfiguration.getPort());
+        redisStandaloneConfiguration.setDatabase(redisSingleProperties.getDatabase());
+        return new LettuceConnectionFactory(redisStandaloneConfiguration, clientConfig);
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean(name = "reactiveRedisTemplate")
+    @ConditionalOnBean(ReactiveRedisConnectionFactory.class)
+    public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(
+            ReactiveRedisConnectionFactory reactiveRedisConnectionFactory, ResourceLoader resourceLoader) {
+        /*JdkSerializationRedisSerializer jdkSerializer = new JdkSerializationRedisSerializer(
+                resourceLoader.getClassLoader());*/
+
+        BlocksFastJsonRedisSerializer serializer = new BlocksFastJsonRedisSerializer(Object.class);
+        ParserConfig.getGlobalInstance().addAccept("cn.blocks.");
+        RedisSerializer<String> stringRedisSerializer = new StringRedisSerializer();
+        RedisSerializationContext.RedisSerializationContextBuilder<String, Object>
+                builder = RedisSerializationContext
+                .newSerializationContext();
+        RedisSerializationContext<String, Object> serializationContext =
+                builder.key(stringRedisSerializer)
+                .value(serializer)
+                .hashKey(stringRedisSerializer)
+                .hashValue(serializer).build();
+        return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
+    }
 
 
 
