@@ -15,6 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum ExceptionEnum {
 
+    /*******************************************8**********************************************/
+    CACHETYPEERROR("800001","缓存类型不匹配:%s"),
+
+
+    /*********************************************9*******************************************/
+
     HTTPSERVERFRAMERROR("900001","httpserver框架异常:%s");
 
     private String code;
