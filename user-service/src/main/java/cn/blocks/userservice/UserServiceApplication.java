@@ -1,5 +1,6 @@
 package cn.blocks.userservice;
 
+import cn.blocks.commoncache.annotation.EnableBlocksCache;
 import cn.blocks.commonmysql.annotation.EnableBlocksMysql;
 import cn.blocks.commonmysql.config.DruidConf;
 import cn.blocks.commonmysql.config.MybatisPlusConf;
@@ -40,6 +41,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @EnableHttpServer(defaultConfiguration = { WebConfig.class, AdviceConfig.class, SwaggerConfiguration.class })
 @EnableBlocksMysql(defaultConfiguration = { SingletonConfiguration.class, DruidConf.class, MybatisPlusConf.class })
 @MapperScan("cn.blocks.userservice.repository.dao")
+
+@EnableBlocksCache(guava = true)
 public class UserServiceApplication implements ApplicationContextAware, CommandLineRunner {
 
     private ApplicationContext applicationContext;

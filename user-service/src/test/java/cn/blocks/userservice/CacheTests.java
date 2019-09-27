@@ -1,6 +1,7 @@
 package cn.blocks.userservice;
 
 import cn.blocks.commoncache.service.ICacheService;
+import cn.blocks.userservice.cache.Test1CacheServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,10 +21,20 @@ public class CacheTests {
     @Resource
     private ICacheService<String,String> testCacheService;
 
+    @Resource
+    private Test1CacheServiceImpl test1CacheService;
+
     @Test
     public void test1(){
         String aaa = testCacheService.load("aaa");
         System.out.println(aaa);
+    }
+
+
+    @Test
+    public void test2(){
+        Object data = test1CacheService.getData("222");
+        System.out.println(data);
     }
 
 }

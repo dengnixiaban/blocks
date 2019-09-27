@@ -1,6 +1,7 @@
 package cn.blocks.commoncache.config;
 
-import org.springframework.cache.annotation.EnableCaching;
+import cn.blocks.commoncache.aspect.CacheAspect;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,10 +12,13 @@ import org.springframework.context.annotation.Configuration;
  * @date 2019/9/26 9:38
  */
 @Configuration
-@EnableCaching
 public class CacheConfiguration {
 
 
+    @Bean
+    public CacheAspect cacheAspect(){
+        return new CacheAspect();
+    }
 
 
 }
