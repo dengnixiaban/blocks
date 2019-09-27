@@ -35,5 +35,7 @@ http调用结构：  httpclient、httpserver
               3.netty集成、websocket集成、使用nio封装io工具包
               4.尽快搞定一个服务器装载k8s环境、maven仓库、git私库、jenkins，构建完整CICD栈以及各db环境
               5.日志架构长期目标:ELK
+              6.前端架构尽快完成
+              7.尽快完成api网关
               ...
 
