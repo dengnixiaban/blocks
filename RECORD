@@ -1,0 +1,39 @@
+--          2019/09/27  init by somnusy
+
+主要用于项目阶段性记录以及重大变更、将要或者还未完成的大方向记录
+
+
+-- 2019/09/27  somnusy
+
+目前完成有
+基础服务 ： eureka注册中心、config配置中心、admin监控中心
+
+http调用结构：  httpclient、httpserver
+
+数据库相关: mysql、redis、mongodb的基础搭建
+            待完成:  配置优化、服务抽取、工具抽取
+            待扩展:  在必要时集成其他db
+
+异步队列模型（事件发布处理）  无必要抽取公共服务，现统一将模板放入common-disruptor中，参照使用
+            待扩展:  目前只有disruptor及google eventbus,未来必要时可加入其他优秀框架,或者自己封装一套
+
+服务：目前只搭建了user-serice、web-admin 用于各项框架集成测试验证，日常业务暂未开展
+            待完成:  设计第一步的需求，尽早开始日常开发
+
+运维:  阿里云因资源问题暂部署了config及eureka于docker单机服务中
+
+缓存架构:  common-cache
+            完成部分: 基础框架设计开发完成，集成redis、caffeine、guava,可选择、装配式使用
+            待完成:  1.提供第二套选择方案(与spring-cache集成使用caffeine)
+                     2.缓存各项配置抽取成用户定义
+                     3.实现缓存统计功能
+                     4.集成mq，实现刷新通知
+                     ...
+
+基础架构待完成:1.mq框架(第一步暂时选用rabbitmq
+              2.定时任务架构(提供web平台配置)  做成分布式定时框架
+              3.netty集成、websocket集成、使用nio封装io工具包
+              4.尽快搞定一个服务器装载k8s环境、maven仓库、git私库、jenkins，构建完整CICD栈以及各db环境
+              5.日志架构长期目标:ELK
+              ...
+
