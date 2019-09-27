@@ -1,7 +1,8 @@
 package cn.blocks.commoncache.annotation;
 
 import cn.blocks.commoncache.constant.CacheType;
-import cn.blocks.commoncache.loader.DataLoader;
+import cn.blocks.commoncache.loader.CacheKeyGenerator;
+import cn.blocks.commoncache.loader.impl.DefaultCacheKeyGenerator;
 
 import java.lang.annotation.*;
 
@@ -29,17 +30,25 @@ public @interface GuavaCache {
      */
     String name();
 
-    /**
-     * 缓存类型
-     * @return
-     */
-    CacheType type() default CacheType.GUAVA_REDIS;
-
 
     /**
-     * loader
+     * key生成器
      * @return
      */
-//    Class<DataLoader> dataLoader();
+    Class keyGenerator() default DefaultCacheKeyGenerator.class;
+
+    /**
+     * 是否使用redis
+     * @return
+     */
+    boolean useRedis() default false;
+
+    /**
+     * redis失效 默认1小时
+     *
+     * @return
+     */
+    int redisExpire() default 1*60*60;
+
 
 }

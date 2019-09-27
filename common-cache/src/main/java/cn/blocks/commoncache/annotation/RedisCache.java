@@ -1,6 +1,6 @@
 package cn.blocks.commoncache.annotation;
 
-import cn.blocks.commoncache.loader.DataLoader;
+import cn.blocks.commoncache.loader.impl.DefaultCacheKeyGenerator;
 
 import java.lang.annotation.*;
 
@@ -30,9 +30,17 @@ public @interface RedisCache {
 
 
     /**
-     * loader
+     * key生成器
      * @return
      */
-    Class<DataLoader> dataLoader();
+    Class keyGenerator() default DefaultCacheKeyGenerator.class;
+
+
+    /**
+     * redis失效 默认1小时
+     *
+     * @return
+     */
+    int redisExpire() default 1*60*60;
 
 }

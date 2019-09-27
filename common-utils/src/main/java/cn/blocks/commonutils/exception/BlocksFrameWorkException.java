@@ -16,6 +16,11 @@ public class BlocksFrameWorkException extends RuntimeException{
         this.code = em.getCode();
     }
 
+    public BlocksFrameWorkException(ExceptionEnum em,String desc) {
+        super(String.format(em.getMsg(),desc));
+        this.code = em.getCode();
+    }
+
     public BlocksFrameWorkException() {
     }
 
@@ -31,7 +36,6 @@ public class BlocksFrameWorkException extends RuntimeException{
 
     public BlocksFrameWorkException(Throwable cause) {
         super(cause);
-        this.code = code;
     }
 
     public BlocksFrameWorkException(String code,String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {

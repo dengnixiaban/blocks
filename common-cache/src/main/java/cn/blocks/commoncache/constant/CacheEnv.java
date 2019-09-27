@@ -1,6 +1,6 @@
 package cn.blocks.commoncache.constant;
 
-import cn.blocks.commoncache.model.BlocksCache;
+import cn.blocks.commoncache.core.BlocksCache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +21,34 @@ public class CacheEnv {
     public static final Map<String,Boolean> enbaleCaches = new HashMap<>();
 
     /**
-     * 缓存池
+     * guava缓存名称
      */
-    public static final ConcurrentHashMap<String, BlocksCache> cachePool = new ConcurrentHashMap<>();
+    public static final String guavaCacheName = "guava";
+
+    /**
+     * redis缓存名称
+     */
+    public static final String redisCacheName = "redis";
+
+    /**
+     * caffeine缓存名称
+     */
+    public static final String caffeineCacheName = "caffeine";
+
+
+    /**
+     * guava缓存池
+     */
+    public static final ConcurrentHashMap<String, BlocksCache> guavaCachePool = new ConcurrentHashMap<>();
+
+    /**
+     * caffeine缓存池
+     */
+    public static final ConcurrentHashMap<String, BlocksCache> caffeineCachePool = new ConcurrentHashMap<>();
+
+    /**
+     * redis
+     */
+    public static final ConcurrentHashMap<String, BlocksCache> redisCachePool = new ConcurrentHashMap<>();
 
 }

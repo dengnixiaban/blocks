@@ -1,7 +1,8 @@
 package cn.blocks.userservice;
 
-import cn.blocks.commoncache.service.ICacheService;
-import cn.blocks.userservice.cache.Test1CacheServiceImpl;
+import cn.blocks.userservice.cache.CaffeineCacheServiceImpl;
+import cn.blocks.userservice.cache.GuavaCacheServiceImpl;
+import cn.blocks.userservice.cache.RedisCacheServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,22 +20,26 @@ import javax.annotation.Resource;
 public class CacheTests {
 
     @Resource
-    private ICacheService<String,String> testCacheService;
+    private GuavaCacheServiceImpl guavaCacheService;
 
     @Resource
-    private Test1CacheServiceImpl test1CacheService;
+    private CaffeineCacheServiceImpl caffeineCacheService;
 
-    @Test
-    public void test1(){
-        String aaa = testCacheService.load("aaa");
-        System.out.println(aaa);
-    }
+    @Resource
+    private RedisCacheServiceImpl redisCacheService;
+
 
 
     @Test
     public void test2(){
-        Object data = test1CacheService.getData("222");
-        System.out.println(data);
+        Object data1 = guavaCacheService.getData("111");
+        System.out.println(data1);
+
+        Object data2 = caffeineCacheService.getData("222");
+        System.out.println(data2);
+
+        Object data3 = redisCacheService.getData("333");
+        System.out.println(data3);
     }
 
 }

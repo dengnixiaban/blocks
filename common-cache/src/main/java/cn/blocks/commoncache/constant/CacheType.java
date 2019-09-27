@@ -22,18 +22,6 @@ public enum  CacheType {
     /**
      * caffeine
      */
-    CAFFEINE,
-
-    /**
-     * guava+redis
-     */
-    GUAVA_REDIS,
-
-    /**
-     * caffeine+redis
-     */
-    CAFFEINE_REDIS;
-
-
+    CAFFEINE;
 
 }

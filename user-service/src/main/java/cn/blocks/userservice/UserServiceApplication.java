@@ -42,7 +42,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @EnableBlocksMysql(defaultConfiguration = { SingletonConfiguration.class, DruidConf.class, MybatisPlusConf.class })
 @MapperScan("cn.blocks.userservice.repository.dao")
 
-@EnableBlocksCache(guava = true)
+@EnableBlocksCache(guava = true,redis = true,caffeine = true)
 public class UserServiceApplication implements ApplicationContextAware, CommandLineRunner {
 
     private ApplicationContext applicationContext;

@@ -1,6 +1,6 @@
 package cn.blocks.commoncache.config;
 
-import cn.blocks.commoncache.aspect.CacheAspect;
+import cn.blocks.commoncache.core.CacheAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

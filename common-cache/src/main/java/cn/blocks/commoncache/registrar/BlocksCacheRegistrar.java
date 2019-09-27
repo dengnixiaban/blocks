@@ -14,10 +14,10 @@ import java.util.Objects;
 
 /**
  * @description
- *          common-mysql模块 配置注入器
+ *          cache模块 配置注入器
  *
  * @author Somnus丶y
- * @date 2019/8/31 15:08
+ * @date 2019/9/27
  */
 @Slf4j
 public class BlocksCacheRegistrar implements ImportBeanDefinitionRegistrar {
@@ -32,18 +32,18 @@ public class BlocksCacheRegistrar implements ImportBeanDefinitionRegistrar {
         Map<String, Object> annotationAttributes = metadata.
                 getAnnotationAttributes(EnableBlocksCache.class.getName(), true);
         //判断几项缓存是否开启
-        Boolean redis = (Boolean)annotationAttributes.get("redis");
+        Boolean redis = (Boolean)annotationAttributes.get(CacheEnv.redisCacheName);
         if(Objects.nonNull(redis)&&redis.booleanValue()){
             //启用redis,扫描所有@RedisCache 开始构造Cache对象
-            CacheEnv.enbaleCaches.put("redis",true);
+            CacheEnv.enbaleCaches.put(CacheEnv.redisCacheName,true);
         }
-        Boolean guava = (Boolean)annotationAttributes.get("guava");
+        Boolean guava = (Boolean)annotationAttributes.get(CacheEnv.guavaCacheName);
         if(Objects.nonNull(guava)&&guava.booleanValue()){
-            CacheEnv.enbaleCaches.put("guava",true);
+            CacheEnv.enbaleCaches.put(CacheEnv.guavaCacheName,true);
         }
-        Boolean caffeine = (Boolean)annotationAttributes.get("caffeine");
+        Boolean caffeine = (Boolean)annotationAttributes.get(CacheEnv.caffeineCacheName);
         if(Objects.nonNull(caffeine)&&caffeine.booleanValue()){
-            CacheEnv.enbaleCaches.put("caffeine",true);
+            CacheEnv.enbaleCaches.put(CacheEnv.caffeineCacheName,true);
         }
         registerClientConfiguration(registry,"cache.cacheConfiguration", CacheConfiguration.class);
     }
@@ -64,8 +64,6 @@ public class BlocksCacheRegistrar implements ImportBeanDefinitionRegistrar {
                                              Class configuration) {
         BeanDefinitionBuilder builder = BeanDefinitionBuilder
                 .genericBeanDefinition(configuration);
-        /*builder.addConstructorArgValue(name);
-        builder.addConstructorArgValue(configuration);*/
         registry.registerBeanDefinition(
                 name + "." + configuration.getSimpleName(),
                 builder.getBeanDefinition());

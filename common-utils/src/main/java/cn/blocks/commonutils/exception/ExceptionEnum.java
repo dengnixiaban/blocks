@@ -21,7 +21,9 @@ public enum ExceptionEnum {
 
     /*********************************************9*******************************************/
 
-    HTTPSERVERFRAMERROR("900001","httpserver框架异常:%s");
+    HTTPSERVERFRAMERROR("900001","httpserver框架异常:%s"),
+
+    CACHEFRAMEWORKERROR("910001","缓存框架异常:%s");
 
     private String code;
     private String msg;
