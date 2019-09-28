@@ -1,0 +1,44 @@
+#开发环境
+spring:
+  application:
+    name: schedule-service
+  cloud:
+    config:
+      uri: http://94.191.94.146:7001/        #Config server的uri
+      profile: dev                       #指定的环境
+      label: master                      #指定分支
+  main:
+    allow-bean-definition-overriding: true      #允许覆盖bean
+
+server:
+  port: 9001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://blocks:blocks@94.191.94.146:7002/eureka/
+    register-with-eureka: true
+  instance:
+#    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 10   #心跳
+    health-check-url-path: /actuator/health
+
+management:
+  security:
+    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+## 日志配置
+logging:
+  path: ../logs/${spring.application.name}
+
+#swagger
+swagger:
+  basePackage: cn.blocks.userservice.controller
+  serviceUrl: ${spring.cloud.client.ip-address}:${server.port}
+

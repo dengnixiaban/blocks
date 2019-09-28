@@ -48,7 +48,9 @@
         <module>common-netty</module>
 
 
-
+        <!--schedule-->
+        <module>schedule-service</module>
+        <module>schedule-client</module>
     </modules>
 
     <properties>
