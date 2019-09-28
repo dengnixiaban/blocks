@@ -64,6 +64,9 @@
         <druid.version>1.1.20</druid.version>
         <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
         <swagger.version>2.9.2</swagger.version>
+<!--        <netty.version>5.0.0.Alpha2</netty.version>-->
+        <protobuf.java>3.7.0</protobuf.java>
+        <protobuf.java.format>1.4</protobuf.java.format>
     </properties>
 
     <dependencies>
