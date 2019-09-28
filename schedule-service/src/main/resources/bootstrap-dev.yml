@@ -42,3 +42,12 @@ swagger:
   basePackage: cn.blocks.userservice.controller
   serviceUrl: ${spring.cloud.client.ip-address}:${server.port}
 
+#rabbitmq
+blocks:
+  rabbit:
+    enable: true
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
