@@ -39,7 +39,7 @@ logging:
 
 #swagger
 swagger:
-  basePackage: cn.blocks.userservice.controller
+  basePackage: cn.blocks.scheduleservice.controller
   serviceUrl: ${spring.cloud.client.ip-address}:${server.port}
 
 #rabbitmq
@@ -51,3 +51,26 @@ blocks:
     username: guest
     password: guest
 
+  #redis
+  redis:
+    singleton:
+      enable: true
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      #      password: 123456
+      timeout: 20000
+      lettuce:
+        pool:
+          max-active: 8
+          min-idle: 0
+          max-wait: -1
+          max-idle: 8
+        shutdown-timeout: 10000
+
+  #mongodb
+  mongo:
+    singleton:
+      enable: true
+      address: 127.0.0.1:27017
+      database: blocks

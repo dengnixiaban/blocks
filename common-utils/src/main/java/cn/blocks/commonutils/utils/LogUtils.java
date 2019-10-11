@@ -402,7 +402,7 @@ public class LogUtils {
      * @date 2019/9/2
      */
     public static void error(Throwable e,String message,Object... obj) {
-        getLogger().warn(String.format(message, obj), e);
+        getLogger().error(String.format(message, obj), e);
     }
 
 
@@ -467,7 +467,7 @@ public class LogUtils {
      * @date 2019/9/2
      */
     public static void error(Logger logger,Throwable e,String message, Object... obj) {
-        logger.warn(String.format(message, obj), e);
+        logger.error(String.format(message, obj), e);
     }
 }
 

@@ -2,6 +2,7 @@ package cn.blocks.httpserver.config;
 
 import cn.blocks.commonutils.utils.LogUtils;
 import cn.blocks.httpserver.aspect.LogAspect;
+import cn.blocks.httpserver.filter.DataTransmitFilter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -185,6 +186,13 @@ public class WebConfig/* implements WebMvcConfigurer */{
     @Bean
     public LogAspect logAspect(){
         return new LogAspect();
+    }
+
+
+
+    @Bean
+    public DataTransmitFilter dataTransmitFilter(){
+        return new DataTransmitFilter();
     }
 
 }
