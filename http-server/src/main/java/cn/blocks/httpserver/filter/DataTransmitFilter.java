@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -36,6 +37,17 @@ public class DataTransmitFilter implements Filter {
             //传递
             LogUtils.putLogId(logId);
         }
+        //跨域
+        HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "*");
+        httpServletResponse.setHeader("Access-Control-Max-Age", "3600");
+        //        httpServletResponse.setHeader("Access-Control-Allow-Headers", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "Authorization,Origin,X-Requested-With,Content-Type,Accept,"
+                                                                      + "content-Type,origin,x-requested-with,content-type,accept,authorization,token,id,X-Custom-Header,X-Cookie,Connection,User-Agent,Cookie,*");
+        httpServletResponse.setHeader("Access-Control-Request-Headers", "Authorization,Origin, X-Requested-With,content-Type,Accept");
+        httpServletResponse.setHeader("Access-Control-Expose-Headers", "*");
         chain.doFilter(request,response);
     }
 

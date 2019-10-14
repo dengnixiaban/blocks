@@ -1,5 +1,7 @@
 package cn.blocks.commonmongodb.config;
 
+import cn.blocks.commonmongodb.service.IdService;
+import cn.blocks.commonmongodb.service.impl.IdServiceImpl;
 import com.google.common.collect.Lists;
 import com.mongodb.*;
 import org.apache.commons.lang3.StringUtils;
@@ -213,6 +215,11 @@ public class SingleMongoConfiguration {
         if (this.mongo != null) {
             this.mongo.close();
         }
+    }
+
+    @Bean
+    public IdService idService(){
+        return new IdServiceImpl();
     }
 
 
