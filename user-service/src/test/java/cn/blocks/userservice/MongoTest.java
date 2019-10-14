@@ -1,5 +1,7 @@
 package cn.blocks.userservice;
 
+import cn.blocks.commonmongodb.service.IdService;
+import cn.blocks.userservice.repository.po.PlatformPO;
 import cn.blocks.userservice.repository.po.UserEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +24,24 @@ public class MongoTest {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private IdService idService;
+
 
     @Test
     public void test1(){
         UserEntity userEntity = new UserEntity();
         userEntity.setName("111");
         mongoTemplate.insert(userEntity);
+    }
+
+
+    @Test
+    public void test2(){
+        Long seqId = idService.getSeqId(PlatformPO.class);
+        System.out.println(seqId);
+        seqId = idService.getSeqId(PlatformPO.class);
+        System.out.println(seqId);
     }
 
 }

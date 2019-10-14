@@ -15,6 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum ExceptionEnum {
 
+    /*********************************************7*******************************************/
+    IDSEQERROR("700001","mongo序列id获取异常"),
+
+
     /*******************************************8**********************************************/
     CACHETYPEERROR("800001","缓存类型不匹配:%s"),
 
@@ -24,6 +28,9 @@ public enum ExceptionEnum {
     HTTPSERVERFRAMERROR("900001","httpserver框架异常:%s"),
 
     CACHEFRAMEWORKERROR("910001","缓存框架异常:%s");
+
+
+
 
     private String code;
     private String msg;
