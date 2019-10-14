@@ -83,7 +83,7 @@ public class MybatisPlusConf {
         log.info("初始化SqlSessionFactory");
         String mapperLocations = "classpath*:mapper/*.xml";
         String configLocation = "classpath:mybatis-sqlconfig.xml";
-        String typeAliasesPackage = "cn.blocks.userservice.repository.po.**";
+        String typeAliasesPackage = "cn.blocks.*";
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         //数据源
         sqlSessionFactory.setDataSource(dataSource);
