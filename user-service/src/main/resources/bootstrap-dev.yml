@@ -173,6 +173,9 @@ mybatisPlus:
     #逻辑删除配置
     logicDeleteValue: 0
     logicNotDeleteValue: 1
+    mapperLocations: classpath*:mapper/*.xml
+    configLocation: classpath:mybatis-sqlconfig.xml
+    typeAliasesPackage: cn.blocks.userservice.repository.po.**
 
 #swagger
 swagger:
