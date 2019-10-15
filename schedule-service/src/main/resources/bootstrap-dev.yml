@@ -9,7 +9,35 @@ spring:
       label: master                      #指定分支
   main:
     allow-bean-definition-overriding: true      #允许覆盖bean
-
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org:
+        quartz:
+          dataSource:
+            quartzDataSource:
+              driver: com.mysql.jdbc.Driver
+              URL: jdbc:mysql://127.0.0.1:3306/qzds?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+              user: root
+              password: 123456
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: false
+            dataSource: quartzDataSource
+            clusterCheckinInterval: 10000
+            useProperties: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
 server:
   port: 9001
 eureka:
@@ -157,19 +185,6 @@ blocks:
       enable: true
       address: 127.0.0.1:27017
       database: blocks
-#quartz
-
-org:
-  quartz:
-    jobStore:
-      tablePrefix : QRTZ_
-      dataSource : qzDS
-      qzDS:
-        driver: com.mysql.jdbc.Driver
-        URL: jdbc:mysql:127.0.0.1:3306/qzds?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-        user: root
-        password: 123456
-        maxConnections: 10
 
 mybatisPlus:
   globalConfig:

@@ -1,18 +1,27 @@
 package cn.blocks.scheduleservice.quartz;
 
+import cn.blocks.commonamqp.constant.ExchangeConstant;
 import cn.blocks.scheduleservice.model.ScheduleJob;
 import cn.blocks.scheduleservice.model.ScheduleJobLog;
 import cn.blocks.scheduleservice.service.IScheduleJobLogService;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,54 +32,51 @@ import java.util.concurrent.Future;
 
 /**
  * 定时任务
- * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年11月30日 下午12:44:21
  */
 @Component
+@Slf4j
 public class ScheduleJobTask extends QuartzJobBean {
 	@Autowired
 	private IScheduleJobLogService logService;
+	@Autowired
+	private AmqpTemplate amqpTemplate;
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	private ExecutorService service = Executors.newSingleThreadExecutor(); 
+	private ExecutorService service = Executors.newFixedThreadPool(10);
 	
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap()
-        		.get(ScheduleJob.JOB_PARAM_KEY);
-        
+		String json = (String) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
+		ScheduleJob scheduleJob = JSON.parseObject(json,ScheduleJob.class);
 
-        
         //数据库保存执行记录
-		ScheduleJobLog log = new ScheduleJobLog();
-        log.setJobId(scheduleJob.getJobId());
-        log.setUrl(scheduleJob.getUrl());
-        log.setParams(scheduleJob.getParams());
-        log.setCreateTime(LocalDateTime.now());
+		ScheduleJobLog ScheduleJobLog = new ScheduleJobLog();
+		ScheduleJobLog.setJobId(scheduleJob.getJobId());
+		ScheduleJobLog.setUrl(scheduleJob.getUrl());
+		ScheduleJobLog.setParams(scheduleJob.getParams());
+		ScheduleJobLog.setCreateTime(LocalDateTime.now());
 
         //任务开始时间
         long startTime = System.currentTimeMillis();
         
         try {
-            //执行任务 TODO 使用rabbit
-//        	logger.info("任务准备执行，任务ID：" + scheduleJob.getJobId());
-//            ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getUrl(),
-//            		 scheduleJob.getParams());
-//            Future<?> future = service.submit(task);
-            
-//			future.get();
+            //执行任务
+        	log.info("任务准备执行，任务ID：" + scheduleJob.getJobId());
+			Future<Object> submit = service.submit(() -> {
+				Object message = amqpTemplate.convertSendAndReceive(scheduleJob.getExchange(),scheduleJob.getRoutingKey(),scheduleJob);
+				return message;
+			});
+			//TODO 获取远程任务执行情况 后续处理
+			Object message = submit.get();
 
 			//任务执行总时长
 			long times = System.currentTimeMillis() - startTime;
-			log.setTimes((int)times);
+			ScheduleJobLog.setTimes((int)times);
 			//任务状态    0：成功    1：失败
-			log.setStatus(0);
-			
-//			logger.info("任务执行完毕，任务ID：" + scheduleJob.getJobId() + "  总共耗时：" + times + "毫秒");
+			ScheduleJobLog.setStatus(0);
+
+			log.info("任务执行完毕，任务ID：" + scheduleJob.getJobId() + "  总共耗时：" + times + "毫秒");
 		} catch (Exception e) {
-			logger.error("##########################任务执行失败",e);
+			log.error("-------------------------------------任务执行失败",e);
 			e.printStackTrace();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -82,12 +88,12 @@ public class ScheduleJobTask extends QuartzJobBean {
 
 			//任务执行总时长
 			long times = System.currentTimeMillis() - startTime;
-			log.setTimes((int)times);
+			ScheduleJobLog.setTimes((int)times);
 			//任务状态    0：成功    1：失败
-			log.setStatus(1);
-			log.setError(StringUtils.substring("执行定时任务失败:"+exception, 0, 2000));
+			ScheduleJobLog.setStatus(1);
+			ScheduleJobLog.setError(StringUtils.substring("执行定时任务失败:"+exception, 0, 2000));
 		}finally {
-			logService.insert(log);
+			logService.insert(ScheduleJobLog);
 		}
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dingxin.dormitorymanage.mapper.ScheduleJobLogMapper">
+<mapper namespace="cn.blocks.scheduleservice.mapper.ScheduleJobLogMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="baseResultMap" type="com.dingxin.dormitorymanage.entity.ScheduleJobLog">
+	<resultMap id="baseResultMap" type="cn.blocks.scheduleservice.model.ScheduleJobLog">
 		<id column="log_id" property="logId" />
 		<result column="job_id" property="jobId" />
 		<result column="url" property="url" />

@@ -1,20 +1,3 @@
 spring:
   profiles:
     active: dev
-org:
-  quartz:
-    scheduler:
-      wrapJobExecutionInUserTransaction: false
-      instanceName: DefaultQuartzScheduler
-      rmi:
-        export: false
-        proxy: false
-    threadPool:
-      class: org.quartz.simpl.SimpleThreadPool # 实例化ThreadPool时，使用的线程类为SimpleThreadPool
-      threadCount: 5
-      threadPriority: 5
-      threadsInheritContextClassLoaderOfInitializingThread: true
-    jobStore:
-      misfireThreshold: 50000
-      class: org.quartz.impl.jdbcjobstore.JobStoreTX
-#      class: org.quartz.simpl.RAMJobStore #任务存在内存中

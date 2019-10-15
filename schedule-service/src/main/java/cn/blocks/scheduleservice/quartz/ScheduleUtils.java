@@ -2,6 +2,7 @@ package cn.blocks.scheduleservice.quartz;
 
 import cn.blocks.scheduleservice.constant.ScheduleConstant;
 import cn.blocks.scheduleservice.model.ScheduleJob;
+import com.alibaba.fastjson.JSON;
 import org.quartz.*;
 
 /**
@@ -9,7 +10,7 @@ import org.quartz.*;
  */
 public class ScheduleUtils {
     private final static String JOB_NAME = "TASK_";
-    
+
     /**
      * 获取触发器key
      */
@@ -51,7 +52,8 @@ public class ScheduleUtils {
             CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getJobId())).withSchedule(scheduleBuilder).build();
 
             //放入参数，运行时的方法可以获取
-            jobDetail.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY, scheduleJob);
+            String s = JSON.toJSONString(scheduleJob);
+            jobDetail.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY,s);
             
             scheduler.scheduleJob(jobDetail, trigger);
             
@@ -79,9 +81,9 @@ public class ScheduleUtils {
             
             //按新的cronExpression表达式重新构建trigger
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
-            
+
             //参数
-            trigger.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY, scheduleJob);
+            trigger.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY, JSON.toJSONString(scheduleJob));
             
             scheduler.rescheduleJob(triggerKey, trigger);
             

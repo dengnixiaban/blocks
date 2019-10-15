@@ -63,6 +63,12 @@ public class ScheduleJob extends Model<ScheduleJob> {
 	@ApiModelProperty(value = "创建时间")
 	private LocalDateTime createTime;
 
+	private String exchange;
+
+	@TableField("routing_key")
+	@ApiModelProperty(value = "路由键")
+	private String routingKey;
+
 
 	@Override
 	protected Serializable pkVal() {

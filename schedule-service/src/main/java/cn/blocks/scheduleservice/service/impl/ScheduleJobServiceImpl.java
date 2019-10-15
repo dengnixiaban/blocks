@@ -7,6 +7,7 @@ import cn.blocks.scheduleservice.quartz.ScheduleUtils;
 import cn.blocks.scheduleservice.service.IScheduleJobService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.checkerframework.checker.units.qual.A;
 import org.quartz.CronTrigger;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,23 +26,17 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, ScheduleJob> implements IScheduleJobService {
-    @Autowired
+@Slf4j
+public class  ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, ScheduleJob> implements IScheduleJobService {
+    @Resource
     private ScheduleJobMapper scheduleJobMapper;
-    @Autowired
-    private ScheduleJobLogMapper scheduleJobLogMapper;
-
     @Autowired
     private Scheduler scheduler;
 
 
-
-    /**
-     * 项目启动时，初始化定时器
-     */
     @PostConstruct
     public void init(){
-        System.out.println("项目启动时，初始化定时器");
+        log.info("初始化定时器");
         List<ScheduleJob> scheduleJobList = scheduleJobMapper.selectList(new EntityWrapper<>());
         for(ScheduleJob scheduleJob : scheduleJobList){
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
@@ -53,30 +49,17 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
         }
     }
 
-
-
-
-
-
-
     public void save(ScheduleJob scheduleJob) {
         scheduleJob.setCreateTime(LocalDateTime.now());
         scheduleJob.setStatus(ScheduleConstant.SCHEDULESTATUS_START);
         scheduleJobMapper.insert(scheduleJob);
-
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
     }
 
     public void update(ScheduleJob scheduleJob) {
         ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
-
         scheduleJobMapper.update(scheduleJob,new EntityWrapper<ScheduleJob>().eq("jobId",scheduleJob.getJobId()));
     }
-
-
-
-
-
 
     public void run(Long[] jobIds) {
         for(Long jobId : jobIds){
@@ -88,15 +71,17 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
         for(Long jobId : jobIds){
             ScheduleUtils.pauseJob(scheduler, jobId);
         }
-
-        updateBatchById(this.selectBatchIds(Lists.newArrayList(jobIds)), ScheduleConstant.SCHEDULESTATUS_STOP);
+        List<ScheduleJob> scheduleJobs = this.selectBatchIds(Lists.newArrayList(jobIds));
+        scheduleJobs.forEach(s->s.setStatus(ScheduleConstant.SCHEDULESTATUS_STOP));
+        updateBatchById(scheduleJobs,scheduleJobs.size());
     }
 
     public void resume(Long[] jobIds) {
         for(Long jobId : jobIds){
             ScheduleUtils.resumeJob(scheduler, jobId);
         }
-
-        updateBatchById(this.selectBatchIds(Lists.newArrayList(jobIds)), ScheduleConstant.SCHEDULESTATUS_START);
+        List<ScheduleJob> scheduleJobs = this.selectBatchIds(Lists.newArrayList(jobIds));
+        scheduleJobs.forEach(s->s.setStatus(ScheduleConstant.SCHEDULESTATUS_STOP));
+        updateBatchById(scheduleJobs,scheduleJobs.size());
     }
 }
