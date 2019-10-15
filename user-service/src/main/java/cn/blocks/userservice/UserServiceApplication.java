@@ -5,11 +5,13 @@ import cn.blocks.commonmysql.annotation.EnableBlocksMysql;
 import cn.blocks.commonmysql.config.DruidConf;
 import cn.blocks.commonmysql.config.MybatisPlusConf;
 import cn.blocks.commonmysql.config.SingletonConfiguration;
+import cn.blocks.commonutils.utils.LogUtils;
 import cn.blocks.httpclient.annotation.EnableHttpClient;
 import cn.blocks.httpserver.annotation.EnableHttpServer;
 import cn.blocks.httpserver.config.AdviceConfig;
 import cn.blocks.httpserver.config.SwaggerConfiguration;
 import cn.blocks.httpserver.config.WebConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import sun.misc.Signal;
 
 /**
  * @description
@@ -32,6 +35,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
  * @author Somnus丶y
  * @date 2019/9/20
  */
+@Slf4j
 @ServletComponentScan(basePackages="cn.blocks")
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
                                    HttpMessageConvertersAutoConfiguration.class,
@@ -62,9 +66,17 @@ public class UserServiceApplication implements ApplicationContextAware, CommandL
 
     @Override
     public void run(String... args) throws Exception {
-//        UserEntity userEntity = new UserEntity();
-//        userEntity.setName("111");
-//        mongoTemplate.insert(userEntity);
+        //15
+        Signal sg = new Signal("TERM");
+        Signal.handle(sg, signal->System.exit(0));
+
+        //关闭钩子 嵌入式tomcat  oom不触发
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run() {
+                LogUtils.info(log,"ending todo");
+            }
+        });
     }
 
 }

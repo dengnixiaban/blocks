@@ -190,3 +190,34 @@ mybatisPlus:
     configLocation: classpath:mybatis-sqlconfig.xml
     typeAliasesPackage: cn.blocks.scheduleservice.**
 
+
+#feign
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
+#ribbon
+ribbon:
+  http:
+    client:
+      enabled: false
+  okhttp:
+    enabled: true
+  ReadTimeout: 5000
+  ConnectTimeout: 3000
+
+  #hystrix
+  hystrix:
+    command:
+      default:
+        execution:
+          timeout:
+            enabled: true
+        isolation:
+          thread:
+            #大于ribbon超时时间
+            timeoutInMilliseconds: 6000

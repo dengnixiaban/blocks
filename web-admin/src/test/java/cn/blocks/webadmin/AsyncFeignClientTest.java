@@ -1,10 +1,12 @@
 package cn.blocks.webadmin;
 
+import cn.blocks.webadmin.remote.fallback.RouteClientFallback;
 import cn.blocks.webadmin.remote.reactive.PluginClient;
 import cn.blocks.webadmin.remote.reactive.RouteClient;
 import cn.blocks.webadmin.remote.reactive.ServiceClient;
 import feign.Client;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import reactivefeign.webclient.WebReactiveFeign;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @description
@@ -38,6 +41,9 @@ public class AsyncFeignClientTest {
     @Autowired
     private Client feignClient;
 
+    @Autowired
+    private RouteClientFallback routeClientFallback;
+
 
     @Before
     public void setup(){
@@ -49,6 +55,7 @@ public class AsyncFeignClientTest {
         String route= SERVER + "/user/user-info";
         routeClient= WebReactiveFeign
                 .<RouteClient>builder()
+                .fallback(routeClientFallback)
                 .target(RouteClient.class, route);
         String plugin= SERVER + "/user/user-info";
         pluginClient= WebReactiveFeign
@@ -63,7 +70,7 @@ public class AsyncFeignClientTest {
         serviceTest();
         routeTest();
         pluginTest();
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
         System.out.println("调用聚合查询结束！耗时：" + (System.currentTimeMillis() - current) + "毫秒");
     }
 
