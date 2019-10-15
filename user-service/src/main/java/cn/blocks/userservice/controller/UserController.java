@@ -44,7 +44,7 @@ public class UserController implements IUserService {
         UserPO userPO = userService.queryById(userDTO.getId());
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(userPO,dto);
-        return Mono.just(Optional.ofNullable(userDTO).orElse(new UserDTO()));
+        return Mono.just(Optional.ofNullable(dto).orElse(new UserDTO()));
     }
 
 

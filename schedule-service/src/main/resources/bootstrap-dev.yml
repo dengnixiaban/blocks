@@ -188,5 +188,5 @@ mybatisPlus:
     logicNotDeleteValue: 1
     mapperLocations: classpath*:mapper/*.xml
     configLocation: classpath:mybatis-sqlconfig.xml
-    typeAliasesPackage: cn.blocks.scheduleservice.repository.po.**
+    typeAliasesPackage: cn.blocks.scheduleservice.**
 

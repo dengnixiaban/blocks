@@ -138,8 +138,8 @@ public class WebConfig/* implements WebMvcConfigurer */{
                 //                SerializerFeature.WriteMapNullValue,
                 SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat,
-                SerializerFeature.WriteNullListAsEmpty,
-                SerializerFeature.WriteNullStringAsEmpty
+                SerializerFeature.WriteNullListAsEmpty/*,
+                SerializerFeature.WriteNullStringAsEmpty*/
         );
         //3处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
