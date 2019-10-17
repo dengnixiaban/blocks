@@ -1,6 +1,5 @@
-package cn.blocks.scheduleservice;
+package cn.blocks.commonmysql.model.po;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,8 +9,6 @@ import lombok.Data;
  */
 @Data
 public class BaseQuery {
-    @ApiModelProperty("当前页:默认值1")
     private int currentPage = 1;
-    @ApiModelProperty("每页条数:默认值10")
     private int pageSize = 10;
 }

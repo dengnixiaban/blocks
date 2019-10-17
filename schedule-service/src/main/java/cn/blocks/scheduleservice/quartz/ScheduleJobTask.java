@@ -1,34 +1,21 @@
 package cn.blocks.scheduleservice.quartz;
 
-import cn.blocks.commonamqp.constant.ExchangeConstant;
-import cn.blocks.scheduleservice.model.ScheduleJob;
-import cn.blocks.scheduleservice.model.ScheduleJobLog;
+import cn.blocks.commonutils.utils.LogUtils;
+import cn.blocks.scheduleservice.constant.ScheduleConstant;
+import cn.blocks.scheduleservice.model.dto.ScheduleJobDTO;
+import cn.blocks.scheduleservice.model.event.NotifyMsg;
+import cn.blocks.scheduleservice.model.po.ScheduleJobLogPO;
+import cn.blocks.scheduleservice.notify.NotifyStrategy;
 import cn.blocks.scheduleservice.service.IScheduleJobLogService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
+import java.util.concurrent.RejectedExecutionException;
 
 /**
  * 定时任务
@@ -36,64 +23,59 @@ import java.util.concurrent.Future;
 @Component
 @Slf4j
 public class ScheduleJobTask extends QuartzJobBean {
-	@Autowired
-	private IScheduleJobLogService logService;
-	@Autowired
-	private AmqpTemplate amqpTemplate;
 
-	private ExecutorService service = Executors.newFixedThreadPool(10);
-	
+	@Autowired
+	private IScheduleJobLogService scheduleJobLogService;
+
+	@Autowired
+	private NotifyStrategy notifyStrategy;
+
+
     @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		String json = (String) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
-		ScheduleJob scheduleJob = JSON.parseObject(json,ScheduleJob.class);
+    protected void executeInternal(JobExecutionContext context) {
+		String json = (String) context.getMergedJobDataMap().get(ScheduleConstant.JOB_PARAM_KEY);
+		ScheduleJobDTO scheduleJob = JSON.parseObject(json, ScheduleJobDTO.class);
 
         //数据库保存执行记录
-		ScheduleJobLog ScheduleJobLog = new ScheduleJobLog();
+		ScheduleJobLogPO ScheduleJobLog = new ScheduleJobLogPO();
 		ScheduleJobLog.setJobId(scheduleJob.getJobId());
-		ScheduleJobLog.setUrl(scheduleJob.getUrl());
-		ScheduleJobLog.setParams(scheduleJob.getParams());
-		ScheduleJobLog.setCreateTime(LocalDateTime.now());
+		ScheduleJobLog.setCreateTime(System.currentTimeMillis());
 
         //任务开始时间
-        long startTime = System.currentTimeMillis();
-        
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
         try {
             //执行任务
-        	log.info("任务准备执行，任务ID：" + scheduleJob.getJobId());
-			Future<Object> submit = service.submit(() -> {
-				Object message = amqpTemplate.convertSendAndReceive(scheduleJob.getExchange(),scheduleJob.getRoutingKey(),scheduleJob);
-				return message;
-			});
-			//TODO 获取远程任务执行情况 后续处理
-			Object message = submit.get();
-
+			LogUtils.info(log,"任务准备执行，任务ID:%s",scheduleJob.getJobId());
+			NotifyMsg notifyMsg = new NotifyMsg();
+			notifyMsg.setExchange(scheduleJob.getExchange());
+			notifyMsg.setRoutKey(scheduleJob.getRoutingKey());
+			notifyMsg.setMsg(scheduleJob);
+			notifyStrategy.notify(notifyMsg);
 			//任务执行总时长
-			long times = System.currentTimeMillis() - startTime;
+			stopWatch.stop();
+			long times = stopWatch.getTotalTimeMillis();
 			ScheduleJobLog.setTimes((int)times);
 			//任务状态    0：成功    1：失败
-			ScheduleJobLog.setStatus(0);
-
+			ScheduleJobLog.setStatus(ScheduleConstant.SCHEDULE_EXECTYPE_SEND);
 			log.info("任务执行完毕，任务ID：" + scheduleJob.getJobId() + "  总共耗时：" + times + "毫秒");
-		} catch (Exception e) {
-			log.error("-------------------------------------任务执行失败",e);
-			e.printStackTrace();
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			e.printStackTrace(new PrintStream(baos));
-			String exception = baos.toString();
-			try {
-				baos.close();
-			}catch (Exception e2){}
-
+		}catch (Exception e) {
+        	if(e.getClass().equals(RejectedExecutionException.class)){
+				LogUtils.error(log,e,"线程池队列已满-任务执行失败");
+			}else{
+				LogUtils.error(log,e,"其他异常-任务执行失败");
+			}
 			//任务执行总时长
-			long times = System.currentTimeMillis() - startTime;
+			stopWatch.stop();
+			long times = stopWatch.getTotalTimeMillis();
 			ScheduleJobLog.setTimes((int)times);
-			//任务状态    0：成功    1：失败
-			ScheduleJobLog.setStatus(1);
-			ScheduleJobLog.setError(StringUtils.substring("执行定时任务失败:"+exception, 0, 2000));
+			//任务状态    0：已发起    1：成功   2-失败
+			ScheduleJobLog.setStatus(ScheduleConstant.SCHEDULE_EXECTYPE_FAIL);
+			ScheduleJobLog.setError(e.getMessage());
 		}finally {
-			logService.insert(ScheduleJobLog);
+			scheduleJobLogService.insert(ScheduleJobLog);
 		}
+
+
     }
 }

@@ -17,23 +17,21 @@
     <packaging>jar</packaging>
 
 
-    <properties>
-        <quartz.version>2.3.0</quartz.version>
-        <c3p0.version>0.9.0.2</c3p0.version>
-    </properties>
-    <dependencies>
 
-        <dependency>
-            <groupId>cn.blocks</groupId>
-            <artifactId>http-client</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+    <dependencies>
 
         <dependency>
             <groupId>cn.blocks</groupId>
             <artifactId>http-server</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.blocks</groupId>
+            <artifactId>user-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 
         <dependency>
             <groupId>cn.blocks</groupId>
@@ -61,19 +59,6 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
 
-        <!--mongodb  & redis-->
-
-        <dependency>
-            <groupId>cn.blocks</groupId>
-            <artifactId>common-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.blocks</groupId>
-            <artifactId>common-mongodb</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>cn.blocks</groupId>
             <artifactId>common-mysql</artifactId>

@@ -14,6 +14,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.util.StopWatch;
 
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @description
@@ -37,7 +40,8 @@ public class LogAspect {
         Method targetMethod = methodSignature.getMethod();
         AccessLog annotation = targetMethod.getAnnotation(AccessLog.class);
         Object[] args = joinPoint.getArgs();
-        LogUtils.info("%s访问日志,参数%s",annotation.desc(), JSON.toJSONString(args));
+        List<Object> org = Stream.of(args).filter(i -> !i.getClass().getName().startsWith("org")).collect(Collectors.toList());
+        LogUtils.info("%s访问日志,参数%s",annotation.desc(), JSON.toJSONString(org));
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Object obj = joinPoint.proceed();

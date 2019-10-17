@@ -3,7 +3,7 @@
 <mapper namespace="cn.blocks.scheduleservice.mapper.ScheduleJobLogMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="baseResultMap" type="cn.blocks.scheduleservice.model.ScheduleJobLog">
+	<resultMap id="baseResultMap" type="cn.blocks.scheduleservice.model.po.ScheduleJobLogPO">
 		<id column="log_id" property="logId" />
 		<result column="job_id" property="jobId" />
 		<result column="url" property="url" />

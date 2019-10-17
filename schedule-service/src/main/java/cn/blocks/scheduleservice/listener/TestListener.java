@@ -1,7 +1,7 @@
 package cn.blocks.scheduleservice.listener;
 
 import cn.blocks.commonamqp.constant.QueueConstant;
-import cn.blocks.scheduleservice.model.MqEvent;
+import cn.blocks.scheduleservice.model.event.MqEvent;
 import com.alibaba.fastjson.JSON;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -30,8 +30,9 @@ public class TestListener {
 
     @RabbitListener(queues = QueueConstant.QUEUE_TEST)
     @RabbitHandler
-    public void consumeTest(@Payload MqEvent event, @Headers Map<String,Object> headers){
+    public String consumeTest(@Payload MqEvent event, @Headers Map<String,Object> headers){
         System.out.println("mq消费:" + JSON.toJSONString(event));
+        return "success";
     }
 
 

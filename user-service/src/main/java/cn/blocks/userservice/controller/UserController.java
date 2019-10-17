@@ -1,13 +1,10 @@
 package cn.blocks.userservice.controller;
 
-import cn.blocks.commonutils.utils.LogUtils;
 import cn.blocks.httpserver.annotation.AccessLog;
 import cn.blocks.userapi.model.UserDTO;
 import cn.blocks.userapi.service.mono.IUserService;
 import cn.blocks.userservice.repository.po.UserPO;
 import cn.blocks.userservice.service.UserService;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @description
@@ -36,11 +34,11 @@ public class UserController implements IUserService {
     private UserService userService;
 
 
+    @AccessLog(desc = "/user/user-info")
     @ApiOperation(value = "用户查询")
     @Override
-    public Mono<UserDTO> userInfo(@ModelAttribute UserDTO userDTO) {
-        LogUtils.info(log,"访问user-info接口,入参%s",
-                JSON.toJSONString(userDTO, SerializerFeature.DisableCircularReferenceDetect));
+    public Mono<UserDTO> userInfo(@ModelAttribute UserDTO userDTO) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
         UserPO userPO = userService.queryById(userDTO.getId());
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(userPO,dto);

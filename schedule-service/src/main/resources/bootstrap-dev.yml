@@ -19,9 +19,9 @@ spring:
           dataSource:
             quartzDataSource:
               driver: com.mysql.jdbc.Driver
-              URL: jdbc:mysql://127.0.0.1:3306/qzds?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+              URL: jdbc:mysql://127.0.0.1:3306/ycx?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
               user: root
-              password: 123456
+              password: 123
           scheduler:
             instanceName: clusteredScheduler
             instanceId: AUTO
@@ -78,6 +78,8 @@ blocks:
     port: 5672
     username: guest
     password: guest
+
+#mysql
   mysql:
     singleton:
       enable: true
@@ -125,14 +127,14 @@ blocks:
         loginUsername: admin
         # 访问的密码
         loginPassword: 123
-        ConnectionUrl: jdbc:mysql://localhost:3306/qzds?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+        ConnectionUrl: jdbc:mysql://localhost:3306/ycx?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
         username: root
-        password: 123456
+        password: 123
       #datasource配置
       datasource:
-        url: jdbc:mysql://localhost:3306/qzds?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+        url: jdbc:mysql://localhost:3306/ycx?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
         username: root
-        password: 123456
+        password: 123
         driverClassName: com.mysql.jdbc.Driver
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
@@ -162,29 +164,6 @@ blocks:
         # 合并多个DruidDataSource的监控数据
         useGlobalDataSourceStat: true
 
-  #redis
-  redis:
-    singleton:
-      enable: true
-      host: 127.0.0.1
-      port: 6379
-      database: 0
-      #      password: 123456
-      timeout: 20000
-      lettuce:
-        pool:
-          max-active: 8
-          min-idle: 0
-          max-wait: -1
-          max-idle: 8
-        shutdown-timeout: 10000
-
-  #mongodb
-  mongo:
-    singleton:
-      enable: true
-      address: 127.0.0.1:27017
-      database: blocks
 
 mybatisPlus:
   globalConfig:
@@ -204,35 +183,3 @@ mybatisPlus:
     mapperLocations: classpath*:mapper/*.xml
     configLocation: classpath:mybatis-sqlconfig.xml
     typeAliasesPackage: cn.blocks.scheduleservice.**
-
-
-#feign
-feign:
-  hystrix:
-    enabled: true
-  httpclient:
-    enabled: false
-  okhttp:
-    enabled: true
-
-#ribbon
-ribbon:
-  http:
-    client:
-      enabled: false
-  okhttp:
-    enabled: true
-  ReadTimeout: 5000
-  ConnectTimeout: 3000
-
-  #hystrix
-  hystrix:
-    command:
-      default:
-        execution:
-          timeout:
-            enabled: true
-        isolation:
-          thread:
-            #大于ribbon超时时间
-            timeoutInMilliseconds: 6000

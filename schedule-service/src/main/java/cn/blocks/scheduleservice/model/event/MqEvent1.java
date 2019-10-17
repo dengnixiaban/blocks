@@ -1,4 +1,4 @@
-package cn.blocks.scheduleservice.model;
+package cn.blocks.scheduleservice.model.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

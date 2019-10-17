@@ -15,10 +15,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
+import org.springframework.web.context.request.async.TimeoutCallableProcessingInterceptor;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +41,7 @@ import java.util.List;
 @Configuration
 @Slf4j
 @EnableWebMvc
-public class WebConfig/* implements WebMvcConfigurer */{
+public class WebConfig extends WebMvcConfigurerAdapter/* implements WebMvcConfigurer */{
 
     @Autowired
     private RequestMappingHandlerAdapter handlerAdapter;
@@ -72,6 +74,17 @@ public class WebConfig/* implements WebMvcConfigurer */{
         }
     }
 
+    @Override
+    public void configureAsyncSupport(final AsyncSupportConfigurer configurer) {
+        configurer.setDefaultTimeout(1000);
+        configurer.registerCallableInterceptors(timeoutInterceptor());
+    }
+
+    @Bean
+    public TimeoutCallableProcessingInterceptor timeoutInterceptor() {
+        return new TimeoutCallableProcessingInterceptor();
+    }
+
 
     /**
      * @description
@@ -83,9 +96,9 @@ public class WebConfig/* implements WebMvcConfigurer */{
      * @author Somnus丶y
      * @date 2019/9/11
      */
-//    @Override
+    /*@Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        /*FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         //设置默认编码
         fastJsonHttpMessageConverter.setDefaultCharset(Charset.forName("UTF-8"));
         //2.添加fastJson的配置信息，比如：是否要格式化返回的json数据;
@@ -109,8 +122,8 @@ public class WebConfig/* implements WebMvcConfigurer */{
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         //5.将convert添加到converters当中.
         //tips-httpmessageconvert  springboot 2.0会按照converters的顺序来，所以要让自定义的生效需要把他放到前面去
-        converters.add(fastJsonHttpMessageConverter);*/
-    }
+        converters.add(fastJsonHttpMessageConverter);
+    }*/
 
 
     /**
@@ -162,7 +175,7 @@ public class WebConfig/* implements WebMvcConfigurer */{
      * @author Somnus丶y
      * @date 2019/9/11
      */
-//    @Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("swagger-ui.html")

@@ -1,28 +1,33 @@
 package cn.blocks.scheduleservice.quartz;
 
+import cn.blocks.commonutils.exception.BusinessException;
+import cn.blocks.commonutils.utils.LogUtils;
 import cn.blocks.scheduleservice.constant.ScheduleConstant;
-import cn.blocks.scheduleservice.model.ScheduleJob;
+import cn.blocks.scheduleservice.model.dto.ScheduleJobDTO;
+import cn.blocks.scheduleservice.model.po.ScheduleJobPO;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 
 /**
  * 定时任务工具类
  */
+@Slf4j
 public class ScheduleUtils {
-    private final static String JOB_NAME = "TASK_";
+
 
     /**
      * 获取触发器key
      */
-    public static TriggerKey getTriggerKey(Long jobId) {
-        return TriggerKey.triggerKey(JOB_NAME + jobId);
+    public static TriggerKey getTriggerKey(Long jobId){
+        return TriggerKey.triggerKey(ScheduleConstant.JOB_NAME + jobId);
     }
     
     /**
      * 获取jobKey
      */
     public static JobKey getJobKey(Long jobId) {
-        return JobKey.jobKey(JOB_NAME + jobId);
+        return JobKey.jobKey(ScheduleConstant.JOB_NAME + jobId);
     }
 
     /**
@@ -39,13 +44,13 @@ public class ScheduleUtils {
     /**
      * 创建定时任务
      */
-    public static void createScheduleJob(Scheduler scheduler, ScheduleJob scheduleJob) {
+    public static void createScheduleJob(Scheduler scheduler, ScheduleJobDTO scheduleJob) {
         try {
         	//构建job信息
             JobDetail jobDetail = JobBuilder.newJob(ScheduleJobTask.class).withIdentity(getJobKey(scheduleJob.getJobId())).build();
 
             //表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCron())
             		.withMisfireHandlingInstructionDoNothing();
 
             //按新的cronExpression表达式构建一个新的trigger
@@ -53,28 +58,29 @@ public class ScheduleUtils {
 
             //放入参数，运行时的方法可以获取
             String s = JSON.toJSONString(scheduleJob);
-            jobDetail.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY,s);
+            jobDetail.getJobDataMap().put(ScheduleConstant.JOB_PARAM_KEY,s);
             
             scheduler.scheduleJob(jobDetail, trigger);
             
             //停止任务
-            if(scheduleJob.getStatus() == ScheduleConstant.SCHEDULESTATUS_STOP){
+            if(ScheduleConstant.SCHEDULESTATUS_STOP.equals(scheduleJob.getStatus())){
             	pauseJob(scheduler, scheduleJob.getJobId());
             }
         } catch (SchedulerException e) {
-            throw new RuntimeException("创建定时任务失败", e);
+            LogUtils.error(log,e,"创建定时任务失败");
+            throw new BusinessException("创建定时任务失败");
         }
     }
     
     /**
      * 更新定时任务
      */
-    public static void updateScheduleJob(Scheduler scheduler, ScheduleJob scheduleJob) {
+    public static void updateScheduleJob(Scheduler scheduler, ScheduleJobDTO scheduleJob) {
         try {
             TriggerKey triggerKey = getTriggerKey(scheduleJob.getJobId());
 
             //表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCron())
             		.withMisfireHandlingInstructionDoNothing();
 
             CronTrigger trigger = getCronTrigger(scheduler, scheduleJob.getJobId());
@@ -83,32 +89,33 @@ public class ScheduleUtils {
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
 
             //参数
-            trigger.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY, JSON.toJSONString(scheduleJob));
-            
+            trigger.getJobDataMap().put(ScheduleConstant.JOB_PARAM_KEY, JSON.toJSONString(scheduleJob));
+
             scheduler.rescheduleJob(triggerKey, trigger);
-            
+
             //暂停任务
-            if(scheduleJob.getStatus() == ScheduleConstant.SCHEDULESTATUS_STOP){
+            if(ScheduleConstant.SCHEDULESTATUS_STOP.equals(scheduleJob.getStatus())){
             	pauseJob(scheduler, scheduleJob.getJobId());
             }
-            
         } catch (SchedulerException e) {
-            throw new RuntimeException("更新定时任务失败", e);
+            LogUtils.error(log,e,"更新定时任务失败");
+            throw new BusinessException("更新定时任务失败");
         }
     }
 
     /**
      * 立即执行任务
      */
-    public static void run(Scheduler scheduler, ScheduleJob scheduleJob) {
+    public static void run(Scheduler scheduler, ScheduleJobPO scheduleJob) {
         try {
         	//参数
         	JobDataMap dataMap = new JobDataMap();
-        	dataMap.put(ScheduleJob.JOB_PARAM_KEY, scheduleJob);
+        	dataMap.put(ScheduleConstant.JOB_PARAM_KEY, scheduleJob);
         	
             scheduler.triggerJob(getJobKey(scheduleJob.getJobId()), dataMap);
         } catch (SchedulerException e) {
-            throw new RuntimeException("立即执行定时任务失败", e);
+            LogUtils.error(log,e,"立即执行定时任务失败");
+            throw new BusinessException("立即执行定时任务失败");
         }
     }
 
@@ -119,7 +126,8 @@ public class ScheduleUtils {
         try {
             scheduler.pauseJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new RuntimeException("暂停定时任务失败", e);
+            LogUtils.error(log,e,"暂停定时任务失败");
+            throw new BusinessException("暂停定时任务失败");
         }
     }
 
@@ -130,7 +138,8 @@ public class ScheduleUtils {
         try {
             scheduler.resumeJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new RuntimeException("恢复定时任务失败", e);
+            LogUtils.error(log,e,"恢复定时任务失败");
+            throw new BusinessException("恢复定时任务失败");
         }
     }
 
@@ -141,7 +150,8 @@ public class ScheduleUtils {
         try {
             scheduler.deleteJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new RuntimeException("删除定时任务失败", e);
+            LogUtils.error(log,e,"删除定时任务失败");
+            throw new BusinessException("删除定时任务失败");
         }
     }
 }

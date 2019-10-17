@@ -17,6 +17,6 @@ public interface IUserService {
 
 
     @RequestMapping(value = "/user-info",method = RequestMethod.GET)
-    Mono<UserDTO> userInfo(UserDTO userDTO);
+    Mono<UserDTO> userInfo(UserDTO userDTO) throws InterruptedException;
 
 }

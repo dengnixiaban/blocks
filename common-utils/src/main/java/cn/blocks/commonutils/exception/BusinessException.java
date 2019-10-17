@@ -28,5 +28,11 @@ public class BusinessException extends RuntimeException{
         this.msg = em.getMsg();
     }
 
+    public BusinessException(String msg) {
+        super();
+        this.code = "000500";
+        this.msg = msg;
+    }
+
 
 }
