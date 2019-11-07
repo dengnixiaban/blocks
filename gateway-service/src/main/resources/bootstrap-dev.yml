@@ -1,0 +1,51 @@
+#开发环境
+server:
+  port: 7003
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      uri: http://config-service:8000/
+      profile: dev
+      label: master
+eureka:
+  client:
+    service-url:
+      defaultZone: http://blocks:blocks@127.0.0.1:7002/eureka/
+    register-with-eureka: true
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 10   #心跳
+    health-check-url-path: /actuator/health
+    hostname: ${spring.cloud.client.ip-address}   #解决在服务器环境 desktop-i4smm4g:8769/actuator/health
+zuul:
+  routes:
+    user-service:
+      path: /user-service/**
+      serviceId: user-service
+    schedule-service:
+      path: /schedule-service/**
+      serviceId: schedule-service
+    web-admin:
+      path: /web-admin/**
+      serviceId: web-admin
+      sensitive-headers: Cookie,Set-Cookie
+    file-upload: /file/**   #10M以上的上传
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时大于Hystrix的超时时间
+    socket-timeout-millis: 60000   #socket超时
+ribbon:        #设置ribbon的超时时间小于zuul的超时时间
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+management:
+  security:
+    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

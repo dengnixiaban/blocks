@@ -6,13 +6,14 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://blocks:blocks@94.191.94.146:7002/eureka/
+      defaultZone: http://blocks:blocks@127.0.0.1:7002/eureka/
     register-with-eureka: true
   instance:
     #    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     lease-renewal-interval-in-seconds: 10   #心跳
     health-check-url-path: /actuator/health
+    hostname: ${spring.cloud.client.ip-address}   #解决在服务器环境 desktop-i4smm4g:8769/actuator/health
 
 management:
   endpoints:
@@ -22,3 +23,5 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+#admin:
+#  preUri: http://admin-monitor:8000/

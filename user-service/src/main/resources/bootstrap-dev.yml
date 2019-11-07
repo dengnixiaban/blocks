@@ -4,7 +4,8 @@ spring:
     name: user-service
   cloud:
     config:
-      uri: http://94.191.94.146:7001/        #Config server的uri
+#      uri: http://94.191.94.146:7001/        #Config server的uri
+      uri: http://config-service:8000/        #Config server的uri
       profile: dev                       #指定的环境
       label: master                      #指定分支
   main:
@@ -22,7 +23,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://blocks:blocks@94.191.94.146:7002/eureka/
+      defaultZone: http://blocks:blocks@eureka-service:8000/eureka/
     register-with-eureka: true
   instance:
 #    instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}:${server.port})

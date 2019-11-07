@@ -1,6 +1,7 @@
 package cn.blocks.commonutils.config;
 
 import cn.blocks.commonutils.utils.BeanHolder;
+import cn.blocks.commonutils.utils.EnvironmentUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,5 +21,10 @@ public class BlocksInitConfiguration {
         return new BeanHolder();
     }
 
+
+    @Bean
+    public EnvironmentUtils environmentUtils(){
+        return new EnvironmentUtils();
+    }
 
 }

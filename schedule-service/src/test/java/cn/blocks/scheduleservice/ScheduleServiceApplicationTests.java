@@ -1,6 +1,6 @@
 package cn.blocks.scheduleservice;
 
-import cn.blocks.commonamqp.constant.ExchangeConstant;
+import cn.blocks.commonamqp.constant.AmqpConstant;
 import cn.blocks.scheduleservice.model.event.MqEvent1;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class ScheduleServiceApplicationTests {
     @Test
     public void contextLoads() {
         MqEvent1 event = new MqEvent1("aa,","bb");
-        amqpTemplate.convertAndSend(ExchangeConstant.TEST_TOPIC,"test.test.1", event);
+        amqpTemplate.convertAndSend(AmqpConstant.TEST_TOPIC,"test.test.1", event);
     }
 
 

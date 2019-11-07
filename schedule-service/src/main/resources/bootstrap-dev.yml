@@ -78,8 +78,24 @@ blocks:
     port: 5672
     username: guest
     password: guest
+    listener:
+      type: simple
+      simple:
+        retry:
+          max-attempts: 3           #重试次数
+          enabled: true             #开启重试
+          initial-interval: 15000    #重试时间
+        default-requeue-rejected: false #重试次数超过上面的设置之后是否丢弃（false不丢弃时需要写相应代码将该消息加入死信队列）
+        concurrency: 5 #并发
+        acknowledge-mode: manual    #none、manual auto
+        max-concurrency: 100  #最大并发
+        prefetch: 50          #预取
+        idle-event-interval: 5000     #ListenerContainerIdleEvent  空闲消费者事件
+      direct:
+        acknowledge-mode: manual    #none、manual auto
 
-#mysql
+
+  #mysql
   mysql:
     singleton:
       enable: true

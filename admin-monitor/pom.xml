@@ -34,7 +34,11 @@
 <!--            <artifactId>jolokia-core</artifactId>-->
 <!--        </dependency>-->
 
-
+        <dependency>
+            <groupId>cn.blocks</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>cn.blocks</groupId>
@@ -53,6 +57,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
 
     </dependencies>
 

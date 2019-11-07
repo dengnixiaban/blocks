@@ -21,6 +21,7 @@
         <module>config-service</module>
         <module>eureka-service</module>
         <module>admin-monitor</module>
+        <module>gateway-service</module>
 
         <!--common-->
         <module>common-dependency</module>
@@ -87,5 +88,19 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+<!-- 暂时关闭私服   <distributionManagement>
+        <repository>
+            <id>blocks-releases</id>
+            <url>http://182.61.61.83:13001/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>blocks-snapshots</id>
+            <url>http://182.61.61.83:13001/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>-->
+
+
 
 </project>
