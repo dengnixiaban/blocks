@@ -17,7 +17,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>common-dependency</name>
     <description>common-dependency for blocks</description>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
 
     <dependencies>
